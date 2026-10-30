@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anket</title>
+    <link rel="icon" href="favicon.png">
+</head>
+<body>
+    <form action="/" method="POST">
+        <label for="fəaliyyet_adı">Fəaliyyət Adı:</label>
+        <input type="text" id="fəaliyyet_adı" name="activity" required><br>
+        
+        <label for="kateqoriya">Kateqoriya:</label>
+        <input type="text" id="kateqoriya" name="category" required><br>
+
+        <label for="yoldaş">Bu fəaliyyəti birlikdə elədiyin yoldaş(ad):</label>
+        <input type="text" id="yoldaş" name="companion" required><br>
+
+        <label for="yaş">Yaş:</label>
+        <input type="number" id="yaş" name="age" min="6" max="18" required><br>
+
+        <label for="sinif">Sinif:</label>
+        <select name="grade" id="sinif">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9</option>
+            <option value="10">10</option>
+            <option value="11">11</option>
+        </select><br>
+
+        <label for="boş gün">Həftənin hansı günü daha çox boş vaxtınız olur?:</label>
+        <select name="free_day" id="boş_gün">
+            <option value="Bazar ertəsi">Bazar ertəsi</option>
+            <option value="Çərşəndə axşamı">Çərşəndə axşamı</option>
+            <option value="Çərşəbə">Çərşəbə</option>
+            <option value="Cümə axşamı">Cümə axşamı</option>
+            <option value="Cümə">Cümə</option>
+            <option value="Şənbə">Şənbə</option>
+            <option value="Bazar">Bazar</option>
+        </select><br>
+
+        <label for="saat">Hobbi ilə neçə saat məşğul olursan?</label>
+        <input type="number" id="saat" name="hours_per_day" min="0.5" max="5" step="0.1" required><br>
+        
+        <label for="məmnuniyyət">Fəaliyyətinizdən nə qədər məmnunsunuz?:</label>
+        <input type="number" id="məmnuniyyət" name="satisfaction" min="1" max="10" step="0.5" required><br>
+
+        <button type="submit">Göndər</button>
+    </form>
+</body>
+</html>
