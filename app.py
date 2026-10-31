@@ -69,14 +69,13 @@ def index():
 
         # Cavabları responses cədvəlinə yazırıq
         response = responses(
-            age=age,
-            grade=grade,
+            age=age,grade=grade,
             free_day=free_day,
             activity_id=act.id,
             companion_id=comp.id,
             hours_per_day=hours_per_day,
             satisfaction=satisfaction
-        )
+            )
         db.session.add(response)
         db.session.commit()
 
