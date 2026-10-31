@@ -11,70 +11,78 @@ cavablar_cədvəli = "responses"
 app.config['SQLALCHEMY_DATABASE_URI'] = f'postgresql://postgres@localhost:5432/{baza_adı}'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
-# kommentləri özüm yazzmışam
+# kommentləri özüm yazmışam
 
-# activities cədvəli üçün model yəni məlumatın gəlib düşdüyü struktur
+# activities cədvəli üçün model
 class activities(db.Model): 
     __tablename__ = aktivlik_cədvəli
-    id = db.Column(db.Integer, primary_key=True) # fəaliyyətin id-si
-    name = db.Column(db.String(50), unique=True, nullable=False) # fəaliyyətin adı
-    category = db.Column(db.String(30), nullable=False) # fəaliyyət kateqoriyaı
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(50), unique=True, nullable=False)
+    category = db.Column(db.String(100), nullable=False)
 
-# companions cədvəli üçün model yəni məlumatın gəlib düşdüyü struktur
+# companions cədvəli üçün model
 class companions(db.Model):
     __tablename__ = yoldaş_cədvəli
-    id = db.Column(db.Integer, primary_key=True) # yoldaşın id-si
-    name = db.Column(db.String(50), unique=True, nullable=False) # yoldaşın adı
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(50), unique=True, nullable=False)
 
-# responses cədvəli üçün model yəni məlumatın gəlib düşdüyü struktur
+# responses cədvəli üçün model
 class responses(db.Model):
     __tablename__ = cavablar_cədvəli
     id = db.Column(db.Integer, primary_key=True)
-    age = db.Column(db.Integer, nullable=False) #yaş
-    grade = db.Column(db.Integer, nullable=False) # sinif
-    free_day = db.Column(db.String(20), nullable=False) # boş gün
-    activity_id = db.Column(db.Integer, db.ForeignKey(f'{aktivlik_cədvəli}.id'), nullable=False) # fəaliyyətin id-si
-    companion_id = db.Column(db.Integer, db.ForeignKey(f'{yoldaş_cədvəli}.id'), nullable=False) # yoldaşın id-si
-    hours_per_day = db.Column(db.Numeric(3,1), nullable=False) # hobbi ilə məşğul olduğum saatlar
-    satisfaction = db.Column(db.Integer, nullable=False) # məmnuniyyət səviyyəsi
+    age = db.Column(db.Integer, nullable=False)
+    grade = db.Column(db.Integer, nullable=False)
+    free_day = db.Column(db.String(30), nullable=False)
+    activity_id = db.Column(db.Integer, nullable=False)
+    companion_id = db.Column(db.Integer, nullable=False)
+    hours_per_day = db.Column(db.Numeric(3,1), nullable=False)
+    satisfaction = db.Column(db.Numeric(3,1), nullable=False)
+
 
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
     if request.method == 'POST':
+        # HTML-dəki name atributları ilə dəyərləri oxuyuruq
         activity_name = request.form.get('activity')
         category_name = request.form.get('category')
         companion_name = request.form.get('companion')
-        age = request.form.get('age')
-        grade = request.form.get('grade')
+        age = int(request.form.get('age'))
+        grade = int(request.form.get('grade'))
         free_day = request.form.get('free_day')
-        hours_per_day = request.form.get('hours_per_day')
-        satisfaction = request.form.get('satisfaction')
-        return  render_template ('cavab.html')
+        hours_per_day = float(request.form.get('hours_per_day'))
+        satisfaction = float(request.form.get('satisfaction'))
 
-# 1. Fəaliyyət bazada varmı yoxla, yoxdursa əlavə et
-    act = activities.query.filter_by(name=activity_name).first()
-    if not act:
-        act = activities(name=activity_name, category=category_name)
-        db.session.add(act)
+        # Fəaliyyət bazada varmı yoxla, yoxdursa əlavə et
+        act = activities.query.filter_by(name=activity_name).first()
+        if not act:
+            act = activities(name=activity_name, category=category_name)
+            db.session.add(act)
+            db.session.commit()
+
+        # Yoldaş bazada varmı yoxla, yoxdursa əlavə et
+        comp = companions.query.filter_by(name=companion_name).first()
+        if not comp:
+            comp = companions(name=companion_name)
+            db.session.add(comp)
+            db.session.commit()
+
+        # Cavabları responses cədvəlinə yazırıq
+        response = responses(
+            age=age,
+            grade=grade,
+            free_day=free_day,
+            activity_id=act.id,
+            companion_id=comp.id,
+            hours_per_day=hours_per_day,
+            satisfaction=satisfaction
+        )
+        db.session.add(response)
         db.session.commit()
 
-    # 2. Yoldaş bazada varmı yoxla, yoxdursa əlavə et
-    comp = companions.query.filter_by(name=companion_name).first()
-    if not comp:
-        comp = companions(name=companion_name)
-        db.session.add(comp)
-        db.session.commit()
+        return render_template('cavab.html')
 
-    # 3. Cavabları responses cədvəlinə yazırıq
-    new_response = responses(
-        age=age,
-        grade=grade,
-        free_day=free_day,
-        activity_id=act.id,
-        companion_id=comp.id,
-        hours_per_day=hours_per_day,
-        satisfaction=satisfaction
-    )
-    db.session.add(new_response)
-    db.session.commit()
+    return render_template('index.html')
+
+if __name__ == '__main__':
+    app.run(debug=True)
