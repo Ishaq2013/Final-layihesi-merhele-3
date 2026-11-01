@@ -15,68 +15,114 @@
     display: flex;
     justify-content: center;
     align-items: center;
-}
+    }
+    label {
+        display: block;
+        margin-top: 18px;
+    }
+    input, select {
+        width: 100%;
+        padding: 8px;
+        margin-top: 5px;
+        box-sizing: border-box;
+        background: -webkit-linear-gradient(#0095ff, #00ff9f, #b7ff00, #ffb300);
+        border: 3px solid #000;
+        border-radius: 10px;
+    }   
+    button {
+        display: block;
+        margin: 15px auto auto auto;
+        padding: 10px 20px;
+        justify-content: center;
+        align-items: center;
+        background: linear-gradient( #0095ff, #00ff9f, #b7ff00, #ffb300);
+        border: 3px solid #000;
+        border-radius: 10px;
+        margin-bottom: 5px;
+    }
+    div.conteiner {
+        background-color: transparent;
+        padding: 0 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.70);
+        width: 400px;
+    }
+    option {
+        background: linear-gradient(to right, #0095ff, #00ff9f, #b7ff00, #ffb300);
+    }
 </style>
 </head>
 <body>
-    <form action="/" method="POST">
-        <label for="fəaliyyet_adı">Fəaliyyət Adı:</label>
-        <input type="text" id="fəaliyyet_adı" name="activity" required><br>
-        
-        <label for="kateqoriya">Kateqoriya:</label>
-        <select name="category">
-            <option value="Texnologiya_və_proqramlaşdırma">Texnologiya və Proqramlaşdırma</option>
-            <option value="İntellektual_və_strategiya_oyunları">İntellektual və Strategiya Oyunları</option>
-            <option value="İdman_və_fiziki_fəaliyyət">İdman və Fiziki Fəaliyyət</option>
-            <option value="Kiberidman_və_videooyunlar">Kiberidman və Videooyunlar</option>
-            <option value="Rəqəmsal_dizayn_və_qrafika">Rəqəmsal Dizayn və Qrafika</option>
-            <option value="Oxumaq_və_özünüinkişaf">Oxumaq və Özünüinkişaf</option>
-            <option value="Musiqi">Musiqi</option>
-            <option value="Əl_işləri_və_konstruktorlar">Əl İşləri və Konstruktorlar (DIY)</option>
-            <option value="Dil_öyrənmə">Dil Öyrənmə</option>
-            <option value="Elm_və_tədqiqat">Elm və Tədqiqat</option>
-            <option value="Stolüstü_və_kart_oyunları">Stolüstü və Kart Oyunları</option>
-        </select><br>
+    <div class="conteiner">
+        <form action="/" method="POST">
+            <label for="fəaliyyet_adı">Fəaliyyət Adı:</label>
+            <input type="text" id="fəaliyyet_adı" name="activity" required><br>
+            
+            <label for="kateqoriya">Kateqoriya:</label>
+            <select name="category">
+                <option value="Texnologiya_və_proqramlaşdırma">Texnologiya və Proqramlaşdırma</option>
+                <option value="İntellektual_və_strategiya_oyunları">İntellektual və Strategiya Oyunları</option>
+                <option value="İdman_və_fiziki_fəaliyyət">İdman və Fiziki Fəaliyyət</option>
+                <option value="Kiberidman_və_videooyunlar">Kiberidman və Videooyunlar</option>
+                <option value="Rəqəmsal_dizayn_və_qrafika">Rəqəmsal Dizayn və Qrafika</option>
+                <option value="Oxumaq_və_özünüinkişaf">Oxumaq və Özünüinkişaf</option>
+                <option value="Musiqi">Musiqi</option>
+                <option value="Əl_işləri_və_konstruktorlar">Əl İşləri və Konstruktorlar (DIY)</option>
+                <option value="Dil_öyrənmə">Dil Öyrənmə</option>
+                <option value="Elm_və_tədqiqat">Elm və Tədqiqat</option>
+                <option value="Stolüstü_və_kart_oyunları">Stolüstü və Kart Oyunları</option>
+            </select><br>
 
-        <label for="yoldaş">Bu fəaliyyəti birlikdə elədiyin yoldaş(ad):</label>
-        <input type="text" id="yoldaş" name="companion" required><br>
+            <label for="yoldaş">Bu fəaliyyəti birlikdə elədiyin yoldaş:</label>
+            <select name="companion" id="yoldaş">
+                <option value="">Tək</option>
+                <option value="Qardaşım">Qardaşım</option>
+                <option value="Bacım">Bacım</option>
+                <option value="Anam">Anam</option>
+                <option value="Atam">Atam</option>
+                <option value="Dostum">Dostum</option>
+                <option value="Sinif yoldaşım">Sinif yoldaşım</option>
+                <option value="Qohumum">Qohumum</option>
+                <option value="Müəllim">Müəllimim</option>
+            </select><br>
 
-        <label for="yaş">Yaş:</label>
-        <input type="number" id="yaş" name="age" min="6" max="18" required><br>
+            <label for="yaş">Yaş:</label>
+            <input type="number" id="yaş" name="age" min="6" max="18" required><br>
 
-        <label for="sinif">Sinif:</label>
-        <select name="grade" id="sinif">
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-            <option value="6">6</option>
-            <option value="7">7</option>
-            <option value="8">8</option>
-            <option value="9">9</option>
-            <option value="10">10</option>
-            <option value="11">11</option>
-        </select><br>
+            <label for="sinif">Sinif:</label>
+            <select name="grade" id="sinif">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+                <option value="11">11</option>
+            </select><br>
 
-        <label for="boş gün">Həftənin hansı günü daha çox boş vaxtınız olur?:</label>
-        <select name="free_day" id="boş_gün">
-            <option value="Bazar ertəsi">Bazar ertəsi</option>
-            <option value="Çərşəndə axşamı">Çərşəndə axşamı</option>
-            <option value="Çərşəbə">Çərşəbə</option>
-            <option value="Cümə axşamı">Cümə axşamı</option>
-            <option value="Cümə">Cümə</option>
-            <option value="Şənbə">Şənbə</option>
-            <option value="Bazar">Bazar</option>
-        </select><br>
+            <label for="boş gün">Həftənin hansı günü daha çox boş vaxtınız olur?:</label>
+            <select name="free_day" id="boş_gün">
+                <option value="Bazar ertəsi">Bazar ertəsi</option>
+                <option value="Çərşəndə axşamı">Çərşəndə axşamı</option>
+                <option value="Çərşəbə">Çərşəbə</option>
+                <option value="Cümə axşamı">Cümə axşamı</option>
+                <option value="Cümə">Cümə</option>
+                <option value="Şənbə">Şənbə</option>
+                <option value="Bazar">Bazar</option>
+            </select><br>
 
-        <label for="saat">Hobbi ilə neçə saat məşğul olursan?</label>
-        <input type="number" id="saat" name="hours_per_day" min="0.5" max="5" step="0.1" required><br>
-        
-        <label for="məmnuniyyət">Fəaliyyətinizdən nə qədər məmnunsunuz?:</label>
-        <input type="number" id="məmnuniyyət" name="satisfaction" min="1" max="10" step="0.5" required><br>
+            <label for="saat">Hobbi ilə neçə saat məşğul olursan?</label>
+            <input type="number" id="saat" name="hours_per_day" min="0.5" max="5" step="0.1" required><br>
+            
+            <label for="məmnuniyyət">Fəaliyyətinizdən nə qədər məmnunsunuz?:</label>
+            <input type="number" id="məmnuniyyət" name="satisfaction" min="0" max="10" step="0.5" required><br>
 
-        <button type="submit">Göndər</button>
-    </form>
+            <button type="submit">Göndər</button>
+        </form>
+    </div>
 </body>
 </html>
