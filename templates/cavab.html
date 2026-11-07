@@ -3,12 +3,90 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cavab</title>
+    <title>Nəticə</title>
+    <link rel="icon" href='{{ url_for("static", filename="favicon.png") }}'>
+    <style>
+        body {
+            background-color: #3401ff;
+            background: linear-gradient(to right, #000000, #03009a, #000000);
+            background-attachment: fixed;
+            margin: 0;
+            color: #ffb300;
+            font-family: Arial, sans-serif;
+            overflow: hidden;
+        }
+        div.container {
+            background-color: transparent;
+            border:  3px solid #ffb300;
+            width: 600px;
+            margin: 0 auto;
+            padding: 15px 25px 15px 15px;
+            border-radius: 30px;
+        }
+        h1 {
+            margin-bottom: 10px;
+        }
+        h3 {
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+        ul {
+            padding-left: 20px;
+        }
+        li {
+            display: flex;
+            align-items: center;
+            height: 25px;
+            list-style: none;
+            padding: 7px 0px 7px 15px;
+            border:  2px solid #ffb300;
+            border-radius: 40px;
+            margin-bottom: 5px;
+            text-align: left;
+        }
+        a {
+            width: 150px;
+            display: flex;
+            margin: 5px auto auto auto;
+            padding: 10px 20px;
+            justify-content: center;
+            align-items: center;
+            text-decoration: none;
+            background: linear-gradient( #000000, #03009a, #000000);
+            border: 2px solid #ffb300;
+            border-radius: 40px;
+            color: #ffb300;
+            cursor: grab;
+        }
+        a:hover {
+            background: linear-gradient(#03009a, #000000, #03009a);
+        }
+        a:active {
+            transform: scale(0.9);
+            cursor: grabbing;
+        }
+    </style>
 </head>
 <body>
-    <h1>Cavabınız qəbul edildi!</h1>
-    <button>
-        <a href="{{ url_for('index') }}" style="text-decoration: none; color: #ffb300;">Geri qayıt</a>
-    </button>
+    <center>
+        <h1>Cavabınız qəbul edildi!</h1>
+        <h3>Daxil etdiyiniz cavablar:</h3>
+        <div class="container">
+            <ul>
+                <li>Ad: {{ name }}</li>
+                <li>Fəaliyyət Adı: {{ activity }}</li>
+                <li>Kateqoriya: {{ category }}</li>
+                <li>Bu fəaliyyəti birlikdə elədiyin yoldaş: {{ companion }}</li>
+                <li>Yaş: {{ age }}</li>
+                <li>Sinif: {{ grade }}</li>
+                <li>Həftənin hansı günü daha çox boş vaxtınız olur?: {{ free_day }}</li>
+                <li>Hobbi ilə neçə saat məşğul olursan?: {{ hours_per_day }}</li>
+                <li>Fəaliyyətinizdən nə qədər məmnunsunuz?: {{ satisfaction }}</li>
+                <li>Email: {{ email }}</li>
+            </ul>
+        </div>
+        <a href="{{ url_for('index') }}">Geri qayıt</a>
+    </center>
+    <img src="{{ url_for('static', filename='loqo1_seffaf_fon.png') }}" alt="Image" style="position: fixed; bottom: 0; right: 0; width: 100px; height: 100px;">
 </body>
 </html>

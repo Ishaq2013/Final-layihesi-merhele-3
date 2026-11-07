@@ -48,6 +48,10 @@ class personal_info(db.Model):
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
+    return render_template('index.html')
+
+@app.route('/cavab', methods=['GET', 'POST'])
+def cavab():
     if request.method == 'POST':
         # HTML-dəki name atributları ilə dəyərləri oxuyuruq
         activity_name = request.form.get('activity')
@@ -95,12 +99,20 @@ def index():
         )
         db.session.add(yeni_info)
         db.session.commit()
-        return redirect(url_for('cavab'))
-    return render_template('index.html')
 
-@app.route('/cavab', methods=['GET', 'POST'])
-def cavab():
-    return render_template('cavab.html')
-
+        return render_template('cavab.html',
+            name=name, 
+            activity=activity_name, 
+            category=category_name, 
+            companion=companion_name, 
+            age=age, 
+            grade=grade, 
+            free_day=free_day, 
+            hours_per_day=hours_per_day, 
+            satisfaction=satisfaction, 
+            email=email
+        )
+    
+                               
 if __name__ == '__main__':
     app.run(debug=True)
