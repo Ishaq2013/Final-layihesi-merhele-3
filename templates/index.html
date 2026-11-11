@@ -1,20 +1,54 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- kommentləri özün yazmışamm -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Anket</title>
+    <title>Boş vaxt sorğusu</title>
     <link rel="icon" href='{{ url_for("static", filename="favicon.png") }}'>
 <style>
+    .yüklənmə_animasiyası_arxa_fon { 
+        position: fixed;                                                        
+        inset: 0;                                                               
+        background: linear-gradient(to right, #000000, #03009a, #000000);
+        display: flex;                                                         
+        align-items: center;                                                   
+        justify-content: center;                                                
+        z-index: 9999;                                                          
+        animation: gizlənmə_animasiya_adı 1.5s 3s ease forwards;              
+    } 
+
+    .yüklənmə_animasiyası_dairə {
+      width: 100px;                                          
+      height: 100px;                                         
+      border: 10px solid #ffb300;                        
+      border-top-color: #fff900;                           
+      border-radius: 50%;                                     
+      animation: fırlanma_animasiya_adı 0.5s linear infinite; 
+    }
+
+    @keyframes fırlanma_animasiya_adı {
+      to { transform: rotate(360deg); } 
+    }
+
+    @keyframes gizlənmə_animasiya_adı {
+      to {
+        opacity: 0; 
+        visibility: hidden; 
+      }
+    }
+
     body {
-        background-color: #3401ff;
         background: linear-gradient(to right, #000000, #03009a, #000000);
         background-attachment: fixed;
         margin: 0;
         display: flex;
         justify-content: center;
-        align-items: center;
         color: #ffb300;
+    }
+    form:invalid .göndər {
+        opacity: 0.7;
+        cursor: pointer;
     }
     button.göndər {
         width: 150px;
@@ -27,7 +61,7 @@
         border: 2px solid #ffb300;
         border-radius: 40px;
         color: #ffb300;
-        cursor: grab;
+        cursor: grab !important;
     }
     button.sıfırla {
         width: 150px;
@@ -45,6 +79,7 @@
     label {
         display: block;
         margin-top: 18px;
+        text-align: left;
     }
     input, select {
         width: 525px;
@@ -68,19 +103,34 @@
         max-width: 100%;
         background-color: transparent;
         margin-top: 15px;
+        margin-bottom: 25px;
         padding: 10px 40px 15px 40px;
         border: 3px solid #ffb300;
         border-radius: 30px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.90);
+        box-shadow: 0 0 20px #ffb300;
     }
-    input[type="number"]::-webkit-inner-spin-button,
-    input[type="number"]::-webkit-outer-spin-button {
-        -webkit-appearance: none;
+    h3 {
+        padding: 0;
         margin: 0;
+    }
+    div.container-2 {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 70px;
+        background-color: transparent;
+        margin-bottom: 25px;
+        border: 3px solid #ffb300;
+        border-radius: 30px;
+        box-shadow: 0 0 20px #ffb300;
+    }
+    input[type="number"]::inner-spin-button,input[type="number"]::outer-spin-button {
+        appearance: none;
     }
     div.div-1, div.div-2 {
         display: inline-block;
         font-size: 25px;
+        justify-content: left;
     }
     div.div-2 {
         margin-left: 40px;
@@ -102,7 +152,7 @@
         background: linear-gradient( #000000, #03009a, #000000);
         color: #ffb300;
         transform: scale(0.9);
-        cursor: grabbing;
+        cursor: grabbing !important;
     }
     select:active , input:active {
         background: linear-gradient( #000000, #03009a, #000000);
@@ -138,92 +188,101 @@
 </style>
 </head>
 <body>
-    <div class="conteiner">
-        <form action="{{ url_for('cavab') }}" method="POST">
-            <div class="div-1">
-                    <label><img src="{{ url_for('static', filename='ad.gif') }}" alt="" style="width: 30px; height: 30px; display: inline-block; margin-right: 5px;">Ad:</label>
-                    <input type="text" name="name" title="Zəhmət olmasa bu xananı boş qoymayın!" placeholder="Adınızı daxil edin" required oninvalid="this.setCustomValidity('Zəhmət olmasa bu xananı boş qoymayın!')" oninput="this.setCustomValidity('')"><br>
-
-                    <label><img src="{{ url_for('static', filename='fəaliyyətlər.gif') }}" alt="" style="width: 30px; height: 30px; display: inline-block; margin-right: 5px;">Fəaliyyət Adı:</label>
-                    <input type="text" title="Zəhmət olmasa bu xananı boş qoymayın!" name="activity" placeholder="Fəaliyyət adını daxil edin" required oninvalid="this.setCustomValidity('Zəhmət olmasa bu xananı boş qoymayın!')" oninput="this.setCustomValidity('')"><br>
-
-                    <label><img src="{{ url_for('static', filename='kateqoriya.gif') }}" alt="" style="width: 30px; height: 30px; display: inline-block; margin-right: 5px;">Kateqoriya:</label>
-                    <select name="category" title="Zəhmət olmasa bu xananı boş qoymayın!" required oninvalid="this.setCustomValidity('Zəhmət olmasa bu xananı boş qoymayın!')" oninput="this.setCustomValidity('')">
-                        <option value="">Birini seçin</option>
-                        <option value="Texnologiya və proqramlaşdırma">Texnologiya və Proqramlaşdırma</option>
-                        <option value="İntellektual və strategiya oyunları">İntellektual və Strategiya Oyunları</option>
-                        <option value="İdman və fiziki fəaliyyət">İdman və Fiziki Fəaliyyət</option>
-                        <option value="Kiberidman və videooyunlar">Kiberidman və Videooyunlar</option>
-                        <option value="Rəqəmsal dizayn və qrafika">Rəqəmsal Dizayn və Qrafika</option>
-                        <option value="Oxumaq və özünüinkişaf">Oxumaq və Özünüinkişaf</option>
-                        <option value="Musiqi">Musiqi</option>
-                        <option value="Əl İşləri və Konstruktorlar (DIY)">Əl İşləri və Konstruktorlar (DIY)</option>
-                        <option value="Dil Öyrənmə">Dil Öyrənmə</option>
-                        <option value="Elm və Tədqiqat">Elm və Tədqiqat</option>
-                        <option value="Stolüstü və Kart Oyunları">Stolüstü və Kart Oyunları</option>
-                    </select><br>
-                
-                    <label><img src="{{ url_for('static', filename='yoldaş.gif') }}" alt="" style="width: 30px; height: 30px; display: inline-block; margin-right: 5px;">Bu fəaliyyəti birlikdə elədiyin yoldaş:</label>
-                    <select name="companion" title="Zəhmət olmasa bu xananı boş qoymayın!" required oninvalid="this.setCustomValidity('Zəhmət olmasa bu xananı boş qoymayın!')" oninput="this.setCustomValidity('')">
-                        <option value="">Birini seçin</option>
-                        <option value="Tək">Tək</option>
-                        <option value="Qardaşım">Qardaşım</option>
-                        <option value="Bacım">Bacım</option>
-                        <option value="Anam">Anam</option>
-                        <option value="Atam">Atam</option>
-                        <option value="Dostum">Dostum</option>
-                        <option value="Sinif yoldaşım">Sinif yoldaşım</option>
-                        <option value="Qohumum">Qohumum</option>
-                        <option value="Müəllim">Müəllimim</option>
-                    </select><br>
-
-                    <label><img src="{{ url_for('static', filename='yaş.gif') }}" alt="" style="width: 30px; height: 30px; display: inline-block; margin-right: 5px;">Yaş:</label>
-                    <input type="number" name="age" title="Zəhmət olmasa bu xananı boş qoymayın!" min="6" max="18" placeholder="Yaşınızı daxil edin(6-18)" required oninvalid="this.setCustomValidity('Zəhmət olmasa bu xananı boş qoymayın!')" oninput="this.setCustomValidity('')"><br>
-
-            </div>
-            <div class="div-2">
-                <label><img src="{{ url_for('static', filename='sinif.gif') }}" alt="" style="width: 30px; height: 30px; display: inline-block; margin-right: 5px;">Sinif:</label>
-                <select name="grade" title="Zəhmət olmasa bu xananı boş qoymayın!" required oninvalid="this.setCustomValidity('Zəhmət olmasa bu xananı boş qoymayın!')" oninput="this.setCustomValidity('')">
-                    <option value="">Birini seçin</option>
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                    <option value="6">6</option>
-                    <option value="7">7</option>
-                    <option value="8">8</option>
-                    <option value="9">9</option>
-                    <option value="10">10</option>
-                    <option value="11">11</option>
-                </select>
-            
-                <label><img src="{{ url_for('static', filename='həftənin_günləri.gif') }}" alt="" style="width: 30px; height: 30px; display: inline-block; margin-right: 5px;">Həftənin hansı günü daha çox boş vaxtınız olur?:</label>
-                <select name="free_day" title="Zəhmət olmasa bu xananı boş qoymayın!" required oninvalid="this.setCustomValidity('Zəhmət olmasa bu xananı boş qoymayın!')" oninput="this.setCustomValidity('')">
-                    <option value="">Birini seçin</option>
-                    <option value="Bazar ertəsi">Bazar ertəsi</option>
-                    <option value="Çərşənbə axşamı">Çərşənbə axşamı</option>
-                    <option value="Çərşənbə">Çərşənbə</option>
-                    <option value="Cümə axşamı">Cümə axşamı</option>
-                    <option value="Cümə">Cümə</option>
-                    <option value="Şənbə">Şənbə</option>
-                    <option value="Bazar">Bazar</option>
-                    <option value="Hər gün">Hər gün</option>
-                </select>
-
-                <label><img src="{{ url_for('static', filename='boş_saat.gif') }}" alt="" style="width: 30px; height: 30px; display: inline-block; margin-right: 5px;">Bu fəaliyyətə nə qədər vaxt sərf edirsiniz?</label>
-                <input type="number" name="hours_per_day" required min="0" max="12" step="0.5" placeholder="0 ilə 12 saat arası" title="Zəhmət olmasa bu xananı boş qoymayın!" oninvaild="this.setCustomValidity('Zəhmət olmasa bu xananı boş qoymayın!')">
-            
-                <label><img src="{{ url_for('static', filename='məmnunluq.gif') }}" alt="" style="width: 30px; height: 30px; display: inline-block; margin-right: 5px;">Fəaliyyətinizdən nə qədər məmnunsunuz?</label>
-                <input type="number" name="satisfaction" required min="0" max="10" step="0.5" placeholder="10 üzərindən" title="Zəhmət olmasa bu xananı boş qoymayın!" oninvalid="this.setCustomValidity('Zəhmət olmasa bu xananı boş qoymayın!')">
-
-                <label><img src="{{ url_for('static', filename='email.gif') }}" alt="" style="width: 30px; height: 30px; display: inline-block; margin-right: 5px;">Email:</label>
-                <input type="email" class="tez-hover" name="email" title="Zəhmət olmasa bu xananı boş qoymayın!" placeholder="Email adresiniz" required oninvalid="this.setCustomValidity('Zəhmət olmasa bu xananı boş qoymayın!')" oninput="this.setCustomValidity('')"><br>
-            </div>
-            <button type="submit" title="Göndərmək üçün bas!" class="göndər">Göndər</button>
-            <button type="reset" title="Sıfırlamaq üçün bas!" class="sıfırla">Sıfırla</button>
-        </form>
+    <div class="yüklənmə_animasiyası_arxa_fon">
+        <div class="yüklənmə_animasiyası_dairə"></div>
     </div>
+    <center>
+        <h1>Boş vaxt sorğusu</h1>
+        <div class="conteiner">
+            <form action="{{ url_for('cavab') }}" method="POST">
+                <div class="div-1">
+                        <label><img src="{{ url_for('static', filename='ad.gif') }}" alt="" style="width: 30px; height: 30px; display: inline-block; margin-right: 5px;">Ad:</label>
+                        <input type="text" name="name" title="Zəhmət olmasa bu xananı boş qoymayın!" placeholder="Adınızı daxil edin" required oninvalid="this.setCustomValidity('Zəhmət olmasa bu xananı boş qoymayın!')" oninput="this.setCustomValidity('')"><br>
+
+                        <label><img src="{{ url_for('static', filename='fəaliyyətlər.gif') }}" alt="" style="width: 30px; height: 30px; display: inline-block; margin-right: 5px;">Fəaliyyət Adı:</label>
+                        <input type="text" title="Zəhmət olmasa bu xananı boş qoymayın!" name="activity" placeholder="Fəaliyyət adını daxil edin" required oninvalid="this.setCustomValidity('Zəhmət olmasa bu xananı boş qoymayın!')" oninput="this.setCustomValidity('')"><br>
+
+                        <label><img src="{{ url_for('static', filename='kateqoriya.gif') }}" alt="" style="width: 30px; height: 30px; display: inline-block; margin-right: 5px;">Kateqoriya:</label>
+                        <select name="category" title="Zəhmət olmasa bu xananı boş qoymayın!" required oninvalid="this.setCustomValidity('Zəhmət olmasa bu xananı boş qoymayın!')" oninput="this.setCustomValidity('')">
+                            <option value="">Birini seçin</option>
+                            <option value="Texnologiya və proqramlaşdırma">Texnologiya və Proqramlaşdırma</option>
+                            <option value="İntellektual və strategiya oyunları">İntellektual və Strategiya Oyunları</option>
+                            <option value="İdman və fiziki fəaliyyət">İdman və Fiziki Fəaliyyət</option>
+                            <option value="Kiberidman və videooyunlar">Kiberidman və Videooyunlar</option>
+                            <option value="Rəqəmsal dizayn və qrafika">Rəqəmsal Dizayn və Qrafika</option>
+                            <option value="Oxumaq və özünüinkişaf">Oxumaq və Özünüinkişaf</option>
+                            <option value="Musiqi">Musiqi</option>
+                            <option value="Əl İşləri və Konstruktorlar (DIY)">Əl İşləri və Konstruktorlar (DIY)</option>
+                            <option value="Dil Öyrənmə">Dil Öyrənmə</option>
+                            <option value="Elm və Tədqiqat">Elm və Tədqiqat</option>
+                            <option value="Stolüstü və Kart Oyunları">Stolüstü və Kart Oyunları</option>
+                        </select><br>
+                    
+                        <label><img src="{{ url_for('static', filename='yoldaş.gif') }}" alt="" style="width: 30px; height: 30px; display: inline-block; margin-right: 5px;">Bu fəaliyyəti birlikdə elədiyin yoldaş:</label>
+                        <select name="companion" title="Zəhmət olmasa bu xananı boş qoymayın!" required oninvalid="this.setCustomValidity('Zəhmət olmasa bu xananı boş qoymayın!')" oninput="this.setCustomValidity('')">
+                            <option value="">Birini seçin</option>
+                            <option value="Tək">Tək</option>
+                            <option value="Qardaşım">Qardaşım</option>
+                            <option value="Bacım">Bacım</option>
+                            <option value="Anam">Anam</option>
+                            <option value="Atam">Atam</option>
+                            <option value="Dostum">Dostum</option>
+                            <option value="Sinif yoldaşım">Sinif yoldaşım</option>
+                            <option value="Qohumum">Qohumum</option>
+                            <option value="Müəllim">Müəllimim</option>
+                        </select><br>
+
+                        <label><img src="{{ url_for('static', filename='yaş.gif') }}" alt="" style="width: 30px; height: 30px; display: inline-block; margin-right: 5px;">Yaş:</label>
+                        <input type="number" name="age" title="Zəhmət olmasa bu xananı boş qoymayın!" min="6" max="18" placeholder="Yaşınızı daxil edin(6-18)" required oninvalid="this.setCustomValidity('Zəhmət olmasa bu xananı boş qoymayın!')" oninput="this.setCustomValidity('')"><br>
+
+                </div>
+                <div class="div-2">
+                    <label><img src="{{ url_for('static', filename='sinif.gif') }}" alt="" style="width: 30px; height: 30px; display: inline-block; margin-right: 5px;">Sinif:</label>
+                    <select name="grade" title="Zəhmət olmasa bu xananı boş qoymayın!" required oninvalid="this.setCustomValidity('Zəhmət olmasa bu xananı boş qoymayın!')" oninput="this.setCustomValidity('')">
+                        <option value="">Birini seçin</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                        <option value="10">10</option>
+                        <option value="11">11</option>
+                    </select>
+                
+                    <label><img src="{{ url_for('static', filename='həftənin_günləri.gif') }}" alt="" style="width: 30px; height: 30px; display: inline-block; margin-right: 5px;">Həftənin hansı günü daha çox boş vaxtınız olur?:</label>
+                    <select name="free_day" title="Zəhmət olmasa bu xananı boş qoymayın!" required oninvalid="this.setCustomValidity('Zəhmət olmasa bu xananı boş qoymayın!')" oninput="this.setCustomValidity('')">
+                        <option value="">Birini seçin</option>
+                        <option value="Bazar ertəsi">Bazar ertəsi</option>
+                        <option value="Çərşənbə axşamı">Çərşənbə axşamı</option>
+                        <option value="Çərşənbə">Çərşənbə</option>
+                        <option value="Cümə axşamı">Cümə axşamı</option>
+                        <option value="Cümə">Cümə</option>
+                        <option value="Şənbə">Şənbə</option>
+                        <option value="Bazar">Bazar</option>
+                        <option value="Hər gün">Hər gün</option>
+                    </select>
+
+                    <label><img src="{{ url_for('static', filename='boş_saat.gif') }}" alt="" style="width: 30px; height: 30px; display: inline-block; margin-right: 5px;">Bu fəaliyyətə nə qədər vaxt sərf edirsiniz?</label>
+                    <input type="number" name="hours_per_day" required min="0.5" max="12" step="0.5" placeholder="0 ilə 12 saat arası" title="Zəhmət olmasa bu xananı boş qoymayın!" oninvaild="this.setCustomValidity('Zəhmət olmasa bu xananı boş qoymayın!')">
+                
+                    <label><img src="{{ url_for('static', filename='məmnunluq.gif') }}" alt="" style="width: 30px; height: 30px; display: inline-block; margin-right: 5px;">Fəaliyyətinizdən nə qədər məmnunsunuz?</label>
+                    <input type="number" name="satisfaction" required min="0.5" max="10" step="0.5" placeholder="10 üzərindən" title="Zəhmət olmasa bu xananı boş qoymayın!" oninvalid="this.setCustomValidity('Zəhmət olmasa bu xananı boş qoymayın!')">
+
+                    <label><img src="{{ url_for('static', filename='email.gif') }}" alt="" style="width: 30px; height: 30px; display: inline-block; margin-right: 5px;">Email:</label>
+                    <input type="email" class="tez-hover" name="email" title="Zəhmət olmasa bu xananı boş qoymayın!" placeholder="Email adresiniz" required oninvalid="this.setCustomValidity('Zəhmət olmasa bu xananı boş qoymayın!')" oninput="this.setCustomValidity('')"><br>
+                </div>
+                <button type="submit" title="Göndərmək üçün bas!" class="göndər">Göndər</button>
+                <button type="reset" title="Sıfırlamaq üçün bas!" class="sıfırla">Sıfırla</button>
+            </form>
+        </div>
+        <div class="container-2">
+            <h3>Diqqət : daxil elədiyiniz məlumatlar admin tərəfindən görünə bilər!</h3>
+        </div>
+    </center>
     <img src="{{ url_for('static', filename='loqo1_seffaf_fon.png') }}" alt="Image" style="position: fixed; bottom: 0; right: 0; width: 100px; height: 100px;">
 </body>
 </html>

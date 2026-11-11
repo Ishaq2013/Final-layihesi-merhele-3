@@ -2,6 +2,7 @@ from flask import Flask, render_template, request, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
+app.config['TEMPLATES_AUTO_RELOAD'] = True
 
 baza_adı = "postgres"
 aktivlik_cədvəli = "activities"
@@ -93,12 +94,11 @@ def cavab():
         db.session.commit()
 
         # Şəxsi məlumatları personal_info cədvəlinə yazırıq
-        yeni_info = personal_info(
-            name=name,
-            email=email
-        )
-        db.session.add(yeni_info)
-        db.session.commit()
+        per_info = personal_info.query.filter.by(name=name).first()
+        if not per_info:
+            per_info = personal_info(name=name)
+            db.session.add()
+            db.session.commit()
 
         return render_template('cavab.html',
             name=name, 

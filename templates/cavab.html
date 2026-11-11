@@ -6,84 +6,143 @@
     <title>Nəticə</title>
     <link rel="icon" href='{{ url_for("static", filename="favicon.png") }}'>
     <style>
+        .yüklənmə_animasiyası_arxa_fon { 
+            position: fixed;                                                        
+            inset: 0;                                                               
+            background: linear-gradient(to right, #000000, #03009a, #000000);
+            display: flex;                                                         
+            align-items: center;                                                   
+            justify-content: center;                                                
+            z-index: 9999;                                                          
+            animation: gizlənmə_animasiya_adı 1.5s 1.5s ease forwards;              
+        } 
+
+        .yüklənmə_animasiyası_dairə {
+            width: 100px;                                          
+            height: 100px;                                         
+            border: 10px solid #ffb300;                        
+            border-top-color: #fff900;                           
+            border-radius: 50%;                                     
+            animation: fırlanma_animasiya_adı 0.5s linear infinite; 
+        }
+
+        @keyframes fırlanma_animasiya_adı {
+            to { transform: rotate(360deg); }
+            }
+
+        @keyframes gizlənmə_animasiya_adı {
+            to {
+                opacity: 0; 
+                visibility: hidden; 
+            }
+        }
         body {
             background-color: #3401ff;
             background: linear-gradient(to right, #000000, #03009a, #000000);
             background-attachment: fixed;
             margin: 0;
-            color: #ffb300;
-            font-family: Arial, sans-serif;
-            overflow: hidden;
-        }
-        div.container {
-            background-color: transparent;
-            border:  3px solid #ffb300;
-            width: 600px;
-            margin: 0 auto;
-            padding: 15px 25px 15px 15px;
-            border-radius: 30px;
-        }
-        h1 {
-            margin-bottom: 10px;
-        }
-        h3 {
-            margin-top: 20px;
-            margin-bottom: 10px;
-        }
-        ul {
-            padding-left: 20px;
-        }
-        li {
             display: flex;
+            justify-content: center;
             align-items: center;
-            height: 25px;
-            list-style: none;
-            padding: 7px 0px 7px 15px;
-            border:  2px solid #ffb300;
-            border-radius: 40px;
-            margin-bottom: 5px;
-            text-align: left;
+            color: #ffb300;
         }
         a {
+            text-decoration: none;
             width: 150px;
             display: flex;
-            margin: 5px auto auto auto;
+            margin: 50px auto auto auto;
             padding: 10px 20px;
             justify-content: center;
             align-items: center;
-            text-decoration: none;
             background: linear-gradient( #000000, #03009a, #000000);
             border: 2px solid #ffb300;
             border-radius: 40px;
             color: #ffb300;
             cursor: grab;
         }
+        div.hissə {
+            width: 525px;
+            padding: 15px;
+            margin: 15px 0;
+            box-sizing: border-box;
+            background: linear-gradient(#000000, #03009a, #000000);
+            border: 2px solid #ffb300;
+            border-radius: 40px;
+            color: #ffb300;
+            outline: none;
+        }
+        div.conteiner {
+            position: relative;
+            max-height: 100%;
+            background-color: transparent;
+            margin-top: 15px;
+            padding: 30px;
+            border: 3px solid #ffb300;
+            border-radius: 30px;
+            box-shadow: 0 0 20px #ffb300;
+        }
+        div.div-1, div.div-2 {
+            display: inline-block;
+        }
+        div.div-2 {
+            margin-left: 50px;
+            float: right;
+        }
         a:hover {
-            background: linear-gradient(#03009a, #000000, #03009a);
+            background: linear-gradient( #03009a, #000000, #03009a);
+            color: #ffb300;
+        }
+        div.hissə:hover {
+            background: linear-gradient( #03009a, #000000, #03009a);
+            color: #ffb300;
+        }
+        div.hissə:active {
+            background: linear-gradient( #000000, #03009a, #000000);
+            color: #ffb300;
+            transform: scale(0.9);
         }
         a:active {
+            background: linear-gradient( #000000, #03009a, #000000);
+            color: #ffb300;
             transform: scale(0.9);
             cursor: grabbing;
+        }
+        ::selection {
+            background: #ffb300;
+            color: #000000;
+        }
+        div.hissə:focus{
+            border: 2px solid #ffb300;
+            box-shadow: 0 0 12px rgba(255, 179, 0, 1);
+            outline: none;
+        }
+        h3 {
+            margin-top: 30px;
         }
     </style>
 </head>
 <body>
+    <div class="yüklənmə_animasiyası_arxa_fon">
+        <div class="yüklənmə_animasiyası_dairə"></div>
+    </div>
     <center>
         <h1>Cavabınız qəbul edildi!</h1>
         <h3>Daxil etdiyiniz cavablar:</h3>
-        <div class="container">
-            <ul>
-                <li>Ad: {{ name }}</li>
-                <li>Fəaliyyət Adı: {{ activity }}</li>
-                <li>Kateqoriya: {{ category }}</li>
-                <li>Bu fəaliyyəti birlikdə elədiyin yoldaş: {{ companion }}</li>
-                <li>Yaş: {{ age }}</li>
-                <li>Sinif: {{ grade }}</li>
-                <li>Həftənin hansı günü daha çox boş vaxtınız olur?: {{ free_day }}</li>
-                <li>Hobbi ilə neçə saat məşğul olursan?: {{ hours_per_day }}</li>
-                <li>Fəaliyyətinizdən nə qədər məmnunsunuz?: {{ satisfaction }}</li>
-                <li>Email: {{ email }}</li>
-            </ul>
+        <div class="conteiner">
+                <div class="div-1">
+                    <div class="hissə">Ad: {{ name }}</div>
+                    <div class="hissə">Fəaliyyət Adı: {{ activity }}</div>
+                    <div class="hissə">Kateqoriya: {{ category }}</div>
+                    <div class="hissə">Bu fəaliyyəti birlikdə elədiyin yoldaş: {{ companion }}</div>
+                    <div class="hissə">Yaş: {{ age }}</div>
+                </div>
+                <div class="div-2">
+                    <div class="hissə">Sinif: {{ grade }}</div>
+                    <div class="hissə">Həftənin hansı günü daha çox boş vaxtınız olur?: {{ free_day }}</div>
+                    <div class="hissə">Hobbi ilə neçə saat məşğul olursan?: {{ hours_per_day }}</div>
+                    <div class="hissə">Fəaliyyətinizdən nə qədər məmnunsunuz?: {{ satisfaction }}</div>
+                    <div class="hissə">Email: {{ email }}</div>
+                </div>
         </div>
         <a href="{{ url_for('index') }}">Geri qayıt</a>
     </center>
