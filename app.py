@@ -32,11 +32,12 @@ class companions(db.Model):
 class responses(db.Model):
     __tablename__ = cavablar_cədvəli
     id = db.Column(db.Integer, primary_key=True)
+    personal_name = db.Column(db.Integer, db.ForeignKey(f'{şəxsi_məlumat_cədvəli}.id'), nullable=False)    
     age = db.Column(db.Integer, nullable=False)
     grade = db.Column(db.Integer, nullable=False)
     free_day = db.Column(db.String(20), nullable=False)
-    activity_id = db.Column(db.Integer, nullable=False)
-    companion_id = db.Column(db.Integer, nullable=False)
+    activity_id = db.Column(db.Integer, db.ForeignKey(f'{aktivlik_cədvəli}.id'), nullable=False)
+    companion_id = db.Column(db.Integer, db.ForeignKey(f'{yoldaş_cədvəli}.id'), nullable=False)
     hours_per_day = db.Column(db.Numeric(3,1), nullable=False)
     satisfaction = db.Column(db.Numeric(3,1), nullable=False)
 
@@ -55,7 +56,7 @@ def index():
 def cavab():
     if request.method == 'POST':
         # HTML-dəki name atributları ilə dəyərləri oxuyuruq
-        activity_name = request.form.get('activity')
+        activity_name = request.form.get('activity').capitalize()
         category_name = request.form.get('category')
         companion_name = request.form.get('companion')
         age = int(request.form.get('age'))
@@ -63,7 +64,7 @@ def cavab():
         free_day = request.form.get('free_day')
         hours_per_day = float(request.form.get('hours_per_day'))
         satisfaction = float(request.form.get('satisfaction'))
-        name = request.form.get('name')
+        name = request.form.get('name').capitalize()
         email = request.form.get('email')
 
         # Fəaliyyət bazada varmı yoxla, yoxdursa əlavə et
@@ -80,8 +81,14 @@ def cavab():
             db.session.add(comp)
             db.session.commit()
 
+        per_info = personal_info.query.filter_by(name=name).first()
+        if not per_info:
+            per_info = personal_info(name=name, email=email)
+            db.session.add(per_info)
+            db.session.commit()
         # Cavabları responses cədvəlinə yazırıq
         yeni_response = responses(
+            personal_name=per_info.id,
             age=age,
             grade=grade,
             free_day=free_day,
@@ -94,11 +101,6 @@ def cavab():
         db.session.commit()
 
         # Şəxsi məlumatları personal_info cədvəlinə yazırıq
-        per_info = personal_info.query.filter.by(name=name).first()
-        if not per_info:
-            per_info = personal_info(name=name)
-            db.session.add()
-            db.session.commit()
 
         return render_template('cavab.html',
             name=name, 
@@ -112,7 +114,6 @@ def cavab():
             satisfaction=satisfaction, 
             email=email
         )
-    
                                
 if __name__ == '__main__':
     app.run(debug=True)

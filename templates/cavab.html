@@ -6,7 +6,7 @@
     <title>Nəticə</title>
     <link rel="icon" href='{{ url_for("static", filename="favicon.png") }}'>
     <style>
-        .yüklənmə_animasiyası_arxa_fon { 
+        /* .yüklənmə_animasiyası_arxa_fon { 
             position: fixed;                                                        
             inset: 0;                                                               
             background: linear-gradient(to right, #000000, #03009a, #000000);
@@ -35,7 +35,7 @@
                 opacity: 0; 
                 visibility: hidden; 
             }
-        }
+        } */
         body {
             background-color: #3401ff;
             background: linear-gradient(to right, #000000, #03009a, #000000);
@@ -47,22 +47,26 @@
             color: #ffb300;
         }
         a {
+            text-decoration: none;            
+            color: #ffb300;
+            box-sizing: border-box;
             text-decoration: none;
             width: 150px;
             display: flex;
-            margin: 50px auto auto auto;
+            margin: 25px auto 15px auto;
             padding: 10px 20px;
             justify-content: center;
             align-items: center;
             background: linear-gradient( #000000, #03009a, #000000);
             border: 2px solid #ffb300;
             border-radius: 40px;
-            color: #ffb300;
             cursor: grab;
         }
         div.hissə {
+            display: flex;
+            align-items: center;
             width: 525px;
-            padding: 15px;
+            padding: 15px 15px 15px 30px;
             margin: 15px 0;
             box-sizing: border-box;
             background: linear-gradient(#000000, #03009a, #000000);
@@ -77,6 +81,15 @@
             background-color: transparent;
             margin-top: 15px;
             padding: 30px;
+            border: 3px solid #ffb300;
+            border-radius: 30px;
+            box-shadow: 0 0 20px #ffb300;
+        }
+        div.başlıq {
+            /* width: 500px; */
+            background-color: transparent;
+            margin-top: 15px;
+            padding: 20px 0px;
             border: 3px solid #ffb300;
             border-radius: 30px;
             box-shadow: 0 0 20px #ffb300;
@@ -119,6 +132,12 @@
         h3 {
             margin-top: 30px;
         }
+        h1 {
+            margin: 0;
+        }
+        h2 {
+            margin-bottom: 0;
+        }
     </style>
 </head>
 <body>
@@ -126,25 +145,28 @@
         <div class="yüklənmə_animasiyası_dairə"></div>
     </div>
     <center>
-        <h1>Cavabınız qəbul edildi!</h1>
+        <div class="başlıq">        
+            <h1>Cavabınız qəbul edildi!</h1>
+            <h2>Bizi seçdiyiniz üçün təşəkkür edirik!</h2>
+        </div>
         <h3>Daxil etdiyiniz cavablar:</h3>
         <div class="conteiner">
                 <div class="div-1">
-                    <div class="hissə">Ad: {{ name }}</div>
-                    <div class="hissə">Fəaliyyət Adı: {{ activity }}</div>
-                    <div class="hissə">Kateqoriya: {{ category }}</div>
-                    <div class="hissə">Bu fəaliyyəti birlikdə elədiyin yoldaş: {{ companion }}</div>
-                    <div class="hissə">Yaş: {{ age }}</div>
+                    <div class="hissə"><img src="{{ url_for('static', filename='ad.png') }}" alt="" style="width: 30px; height: 30px; display: inline-block; margin-right: 5px;">Ad: {{ name }}</div>
+                    <div class="hissə"><img src="{{ url_for('static', filename='fəaliyyət.png') }}" alt="" style="width: 30px; height: 30px; display: inline-block; margin-right: 5px;">Fəaliyyət Adı: {{ activity }}</div>
+                    <div class="hissə"> <img src="{{ url_for('static', filename='kateqoriya.png') }}" alt="" style="width: 30px; height: 30px; display: inline-block; margin-right: 5px;">Kateqoriya: {{ category }}</div>
+                    <div class="hissə"><img src="{{ url_for('static', filename='yoldaş.png') }}" alt="" style="width: 30px; height: 30px; display: inline-block; margin-right: 5px;">Bu fəaliyyəti birlikdə elədiyin yoldaş: {{ companion }}</div>
+                    <div class="hissə"><img src="{{ url_for('static', filename='yaş.png') }}" alt="" style="width: 30px; height: 30px; display: inline-block; margin-right: 5px;">Yaş: {{ age }}</div>
                 </div>
                 <div class="div-2">
-                    <div class="hissə">Sinif: {{ grade }}</div>
-                    <div class="hissə">Həftənin hansı günü daha çox boş vaxtınız olur?: {{ free_day }}</div>
-                    <div class="hissə">Hobbi ilə neçə saat məşğul olursan?: {{ hours_per_day }}</div>
-                    <div class="hissə">Fəaliyyətinizdən nə qədər məmnunsunuz?: {{ satisfaction }}</div>
-                    <div class="hissə">Email: {{ email }}</div>
+                    <div class="hissə"><img src="{{ url_for('static', filename='sinif.png') }}" alt="" style="width: 30px; height: 30px; display: inline-block; margin-right: 5px;">Sinif: {{ grade }}</div>
+                    <div class="hissə"><img src="{{ url_for('static', filename='həftənin günü.png') }}" alt="" style="width: 30px; height: 30px; display: inline-block; margin-right: 5px;">Həftənin hansı günü daha çox boş vaxtınız olur?: {{ free_day }}</div>
+                    <div class="hissə"> <img src="{{ url_for('static', filename='təqvim_saat.png') }}" alt="" style="width: 30px; height: 30px; display: inline-block; margin-right: 5px;">Hobbi ilə neçə saat məşğul olursan?: {{ hours_per_day }}</div>
+                    <div class="hissə"><img src="{{ url_for('static', filename='xoşlamaq.png') }}" alt="" style="width: 30px; height: 30px; display: inline-block; margin-right: 5px;">Fəaliyyətinizdən nə qədər məmnunsunuz?: {{ satisfaction }}</div>
+                    <div class="hissə"><img src="{{ url_for('static', filename='email.png') }}" alt="" style="width: 30px; height: 30px; display: inline-block; margin-right: 5px;">Email: {{ email }}</div>
                 </div>
         </div>
-        <a href="{{ url_for('index') }}">Geri qayıt</a>
+        <a href="{{ url_for('index') }}" title="Geri qayıtmaq üçün bas">Geri qayıt</a>
     </center>
     <img src="{{ url_for('static', filename='loqo1_seffaf_fon.png') }}" alt="Image" style="position: fixed; bottom: 0; right: 0; width: 100px; height: 100px;">
 </body>

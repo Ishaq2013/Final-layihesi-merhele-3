@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <style>
+  #kopya-check {
+    display: none;
+  }
+
+  .kopyala-duymesi {
+    display: inline-block;
+    padding: 8px 16px;
+    background-color: #007bff;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    user-select: none;
+  }
+
+  .bildiris {
+    opacity: 0;
+    color: green;
+    font-weight: bold;
+    margin-left: 10px;
+    pointer-events: none;
+  }
+
+  /* Checkbox işarələndikdə 1.2 saniyəlik görünmə və itmə animasiyası işə düşür */
+  #kopya-check:checked ~ .bildiris {
+    animation: gorunVeIt 1.2s forwards;
+  }
+
+  @keyframes gorunVeIt {
+    0% { opacity: 1; }
+    80% { opacity: 1; }   /* Təxminən 1 saniyə ekranda tam görünür */
+    100% { opacity: 0; }  /* Sonra tamamilə itir */
+  }
+</style>
+
+<input type="text" value="Kopyalanacaq mətn">
+<input type="checkbox" id="kopya-check">
+<label for="kopya-check" class="kopyala-duymesi">Kopyala</label>
+<span class="bildiris">Kopyalandı!</span>
+</body>
+</html>
