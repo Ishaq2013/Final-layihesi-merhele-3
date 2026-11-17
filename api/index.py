@@ -2,20 +2,22 @@ import os
 from flask import Flask, render_template, request
 from flask_sqlalchemy import SQLAlchemy
 
-basedir = os.path.abspath(os.path.dirname(__file__))
-app = Flask(__name__, 
-            template_folder=os.path.join(basedir, '../templates'),
-            static_folder=os.path.join(basedir, '../static'))
+db = SQLAlchemy()
 
-app.config['TEMPLATES_AUTO_RELOAD'] = True
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://neondb_owner:npg_Gx1CTwpB5zuR@ep-lively-glitter-bdjqe82z-pooler.c-8.us-east-2.aws.neon.tech/neondb?sslmode=require'
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+def create_app():
+    basedir = os.path.abspath(os.path.dirname(__file__))
+    app = Flask(__name__, 
+                template_folder=os.path.join(basedir, '../templates'),
+                static_folder=os.path.join(basedir, '../static'))
 
-# Vakansiya / təkrar qeydiyyat xətasını önləmək üçün yoxlama
-if not hasattr(app, 'extensions') or 'sqlalchemy' not in app.extensions:
-    db = SQLAlchemy(app)
-else:
-    db = app.extensions['sqlalchemy'].db
+    app.config['TEMPLATES_AUTO_RELOAD'] = True
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://neondb_owner:npg_Gx1CTwpB5zuR@ep-lively-glitter-bdjqe82z-pooler.c-8.us-east-2.aws.neon.tech/neondb?sslmode=require'
+    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
+    db.init_app(app)
+    return app
+
+app = create_app()
 
 # Cədvəl modelləri
 class Activities(db.Model): 
@@ -65,36 +67,37 @@ def cavab():
         satisfaction = float(request.form.get('satisfaction', 0.0))
         email = request.form.get('email', '')
 
-        act = Activities.query.filter_by(name=activity_name).first()
-        if not act:
-            act = Activities(name=activity_name, category=category_name)
-            db.session.add(act)
-            db.session.commit()
+        with app.app_context():
+            act = Activities.query.filter_by(name=activity_name).first()
+            if not act:
+                act = Activities(name=activity_name, category=category_name)
+                db.session.add(act)
+                db.session.commit()
 
-        comp = Companions.query.filter_by(name=companion_name).first()
-        if not comp:
-            comp = Companions(name=companion_name)
-            db.session.add(comp)
-            db.session.commit()
+            comp = Companions.query.filter_by(name=companion_name).first()
+            if not comp:
+                comp = Companions(name=companion_name)
+                db.session.add(comp)
+                db.session.commit()
 
-        per_info = PersonalInfo.query.filter_by(name=name).first()
-        if not per_info:
-            per_info = PersonalInfo(name=name, email=email)
-            db.session.add(per_info)
-            db.session.commit()
+            per_info = PersonalInfo.query.filter_by(name=name).first()
+            if not per_info:
+                per_info = PersonalInfo(name=name, email=email)
+                db.session.add(per_info)
+                db.session.commit()
 
-        yeni_response = Responses(
-            personal_name=per_info.id,
-            age=age,
-            grade=grade,
-            free_day=free_day,
-            activity_id=act.id,
-            companion_id=comp.id,
-            hours_per_day=hours_per_day,
-            satisfaction=satisfaction
-        )
-        db.session.add(yeni_response)
-        db.session.commit()
+            yeni_response = Responses(
+                personal_name=per_info.id,
+                age=age,
+                grade=grade,
+                free_day=free_day,
+                activity_id=act.id,
+                companion_id=comp.id,
+                hours_per_day=hours_per_day,
+                satisfaction=satisfaction
+            )
+            db.session.add(yeni_response)
+            db.session.commit()
 
         return render_template('cavab.html',
             name=name, 
