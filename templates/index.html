@@ -8,15 +8,6 @@
     <title>Boş vaxt sorğusu</title>
     <link rel="icon" href='{{ url_for("static", filename="favicon.png") }}'>
     <style>
-        img {
-            transform: translateY(5px);
-            
-        }
-
-        body::-webkit-scrollbar {
-            display: none;
-        }
-
         /* .yüklənmə_animasiyası_arxa_fon {
             position: fixed;
             inset: 0;
@@ -27,7 +18,7 @@
             z-index: 9999;
             animation: gizlənmə_animasiya_adı 1.5s 1.5s ease forwards;
         }
-
+            
         .yüklənmə_animasiyası_dairə {
             width: 100px;
             height: 100px;
@@ -36,20 +27,20 @@
             border-radius: 50%;
             animation: fırlanma_animasiya_adı 0.5s linear infinite;
         }
-
+            
         @keyframes fırlanma_animasiya_adı {
             to {
                 transform: rotate(360deg);
+                }
             }
-        }
-
+                
         @keyframes gizlənmə_animasiya_adı {
             to {
                 opacity: 0;
                 visibility: hidden;
-            }
+                } 
         } */
-
+                            
         body {
             background: linear-gradient(to right, #000000, #03009a, #000000);
             background-attachment: fixed;
@@ -58,12 +49,12 @@
             justify-content: center;
             color: #ffb300;
         }
-
+        
         form:invalid .göndər {
             opacity: 0.7;
             cursor: pointer;
         }
-
+        
         button.göndər {
             box-sizing: border-box;
             width: 150px;
@@ -78,7 +69,7 @@
             color: #ffb300;
             cursor: grab !important;
         }
-
+    
         button.sıfırla {
             box-sizing: border-box;
             width: 150px;
@@ -93,13 +84,13 @@
             color: red;
             cursor: grab;
         }
-
+        
         label {
             display: block;
             margin-top: 18px;
             text-align: left;
         }
-
+        
         input,
         select {
             width: 525px;
@@ -112,13 +103,13 @@
             color: #ffb300;
             outline: none;
         }
-
+        
         option {
             border-radius: 20px;
             background-color: #000000;
             color: #ffb300;
         }
-
+        
         div.conteiner {
             position: relative;
             max-height: 100%;
@@ -131,12 +122,12 @@
             border-radius: 30px;
             box-shadow: 0 0 20px #ffb300;
         }
-
+        
         h3 {
             padding: 0;
             margin: 0;
         }
-
+        
         div.container-2 {
             display: flex;
             align-items: center;
@@ -153,49 +144,49 @@
         input[type="number"]::-webkit-outer-spin-button {
             appearance: none;
         }
-
+        
         div.div-1,
         div.div-2 {
             display: inline-block;
             font-size: 25px;
             justify-content: left;
         }
-
+        
         div.div-2 {
             margin-left: 40px;
             float: right;
             font-size: 25px;
         }
-
+        
         button.sıfırla:hover {
             background: linear-gradient(#03009a, #000000, #03009a);
         }
-
+        
         button.göndər:hover {
             background: linear-gradient(#03009a, #000000, #03009a);
             color: #ffb300;
         }
-
+        
         select:hover,
         input:hover {
             background: linear-gradient(#03009a, #000000, #03009a);
             color: #ffb300;
         }
-
+        
         button.göndər:active {
             background: linear-gradient(#000000, #03009a, #000000);
             color: #ffb300;
             transform: scale(0.9);
             cursor: grabbing !important;
         }
-
+        
         select:active,
         input:active {
             background: linear-gradient(#000000, #03009a, #000000);
             color: #ffb300;
             transform: scale(0.9);
         }
-
+        
         button.sıfırla:active {
             background: linear-gradient(#000000, #03009a, #000000);
             color: red;
@@ -207,50 +198,58 @@
             background: #ffb300;
             color: #000000;
         }
-
+        
         ::placeholder {
             color: #ffb300;
             opacity: 0.7;
         }
-
+        
         input:user-invalid,
         select:user-invalid {
             border: 2px solid #ff0000;
         }
-
+        
         input:user-valid,
         select:user-valid {
             border: 2px solid greenyellow !important;
-
+            
         }
-
+        
         input:focus,
         select:focus {
             border: 2px solid #ffb300;
             box-shadow: 0 0 25px rgba(255, 179, 0, 1);
             outline: none;
         }
+
         img {
             width: 30px; 
             height: 30px; 
             display: inline-block; 
             margin-right: 5px;
         }
+
         img.kopyalama {
             width: 20px;
             height: 20px;
-            animation: düynə_animasiya_adı 1.5s ease;
         }
-        @keyframes düymə_animasiya_adı{
-            to {transform: scale(1.5);}
-        }
+
         img.göndər {
             display: inline-block;
             width: 20px;
             height: 20px;
             transform: translateY(-1px);
         }
-    </style>
+
+        img {
+            transform: translateY(6px);
+            
+        }
+        
+        body::-webkit-scrollbar {
+            display: none;
+        }
+</style>
 </head>
 
 <body>
@@ -298,7 +297,7 @@
                     <select name="category" title="Zəhmət olmasa bu xananı boş qoymayın!" required
                         oninvalid="this.setCustomValidity('Zəhmət olmasa bu xananı boş qoymayın!')"
                         oninput="this.setCustomValidity('')">
-                        <option value="">Birini seçin</option>
+                        <div class="option"><option value="">Birini seçin</option>
                         <option value="Texnologiya və proqramlaşdırma">Texnologiya və Proqramlaşdırma</option>
                         <option value="İntellektual və strategiya oyunları">İntellektual və Strategiya Oyunları</option>
                         <option value="İdman və fiziki fəaliyyət">İdman və Fiziki Fəaliyyət</option>
@@ -309,7 +308,8 @@
                         <option value="Əl İşləri və Konstruktorlar (DIY)">Əl İşləri və Konstruktorlar (DIY)</option>
                         <option value="Dil Öyrənmə">Dil Öyrənmə</option>
                         <option value="Elm və Tədqiqat">Elm və Tədqiqat</option>
-                        <option value="Stolüstü və Kart Oyunları">Stolüstü və Kart Oyunları</option>
+                        <option value="Stolüstü və Kart Oyunları">Stolüstü və Kart Oyunları</option></div>
+                        
                     </select><br>
 
 
