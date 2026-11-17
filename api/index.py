@@ -51,6 +51,9 @@ class personal_info(db.Model):
 @app.route('/', methods=['GET', 'POST'])
 def index():
     try:
+        # Bazadan sadə bir sorğu yoxlaması edirik
+        test_baglanti = activities.query.first()
         return render_template('index.html')
     except Exception as e:
-        return f"Şablon və ya Kod Xətası: {str(e)}"
+        # Xəta baş verərsə, səbəbini birbaşa ekranda oxuyacağıq
+        return f"VERİLƏNLƏR BAZASI VƏ YA KOD XƏTASI: {str(e)}"
