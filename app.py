@@ -55,7 +55,8 @@ def index():
 @app.route('/cavab', methods=['GET', 'POST'])
 def cavab():
     if request.method == 'POST':
-        # HTML-dəki name atributları ilə dəyərləri oxuyuruq
+        # HTML-dəki name atributları ilə dəyərləri gətiririk
+        name = request.form.get('name').capitalize()
         activity_name = request.form.get('activity').capitalize()
         category_name = request.form.get('category')
         companion_name = request.form.get('companion')
@@ -64,7 +65,6 @@ def cavab():
         free_day = request.form.get('free_day')
         hours_per_day = float(request.form.get('hours_per_day'))
         satisfaction = float(request.form.get('satisfaction'))
-        name = request.form.get('name').capitalize()
         email = request.form.get('email')
 
         # Fəaliyyət bazada varmı yoxla, yoxdursa əlavə et
@@ -101,7 +101,6 @@ def cavab():
         db.session.commit()
 
         # Şəxsi məlumatları personal_info cədvəlinə yazırıq
-
         return render_template('cavab.html',
             name=name, 
             activity=activity_name, 
