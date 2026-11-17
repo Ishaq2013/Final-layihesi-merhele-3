@@ -1,59 +1,25 @@
 import os
-from flask import Flask, render_template, request, redirect, url_for 
-from flask_sqlalchemy import SQLAlchemy
+from flask import Flask
 
-basedir = os.path.abspath(os.path.dirname(__file__))
-app = Flask(__name__, 
-            template_folder=os.path.join(basedir, '../templates'),
-            static_folder=os.path.join(basedir, '../static'))
+app = Flask(__name__)
 
-app.config['TEMPLATES_AUTO_RELOAD'] = True
-
-baza_adı = "postgres"
-aktivlik_cədvəli = "activities"
-yoldaş_cədvəli = "companions"
-cavablar_cədvəli = "responses"
-şəxsi_məlumat_cədvəli = "personal_info"
-
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://neondb_owner:npg_Gx1CTwpB5zuR@ep-lively-glitter-bdjqe82z-pooler.c-8.us-east-2.aws.neon.tech/neondb?sslmode=require&channel_binding=require'
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-db = SQLAlchemy(app)
-
-class activities(db.Model): 
-    __tablename__ = aktivlik_cədvəli
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(50), unique=True, nullable=False)
-    category = db.Column(db.String(100), nullable=False)
-
-class companions(db.Model):
-    __tablename__ = yoldaş_cədvəli
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(50), unique=True, nullable=False)
-
-class responses(db.Model):
-    __tablename__ = cavablar_cədvəli
-    id = db.Column(db.Integer, primary_key=True)
-    personal_name = db.Column(db.Integer, db.ForeignKey(f'{şəxsi_məlumat_cədvəli}.id'), nullable=False)    
-    age = db.Column(db.Integer, nullable=False)
-    grade = db.Column(db.Integer, nullable=False)
-    free_day = db.Column(db.String(20), nullable=False)
-    activity_id = db.Column(db.Integer, db.ForeignKey(f'{aktivlik_cədvəli}.id'), nullable=False)
-    companion_id = db.Column(db.Integer, db.ForeignKey(f'{yoldaş_cədvəli}.id'), nullable=False)
-    hours_per_day = db.Column(db.Numeric(3,1), nullable=False)
-    satisfaction = db.Column(db.Numeric(3,1), nullable=False)
-
-class personal_info(db.Model):
-    __tablename__ = şəxsi_məlumat_cədvəli
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(20), nullable=False)
-    email = db.Column(db.String(30), nullable=False)
-
-@app.route('/', methods=['GET', 'POST'])
+@app.route('/')
 def index():
     try:
-        # Bazadan sadə bir sorğu yoxlaması edirik
-        test_baglanti = activities.query.first()
-        return render_template('index.html')
+        # Kitabxanaları və bağlantını yoxlayırıq
+        import psycopg2
+        from flask_sqlalchemy import SQLAlchemy
+        
+        basedir = os.path.abspath(os.path.dirname(__file__))
+        app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://neondb_owner:npg_Gx1CTwpB5zuR@ep-lively-glitter-bdjqe82z-pooler.c-8.us-east-2.aws.neon.tech/neondb?sslmode=require'
+        app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+        
+        db = SQLAlchemy(app)
+        
+        # Bazaya test sorğusu
+        with app.app_context():
+            db.session.execute(db.text('SELECT 1'))
+            
+        return "Verilənlər bazası bağlantısı uğurla quruldu!"
     except Exception as e:
-        # Xəta baş verərsə, səbəbini birbaşa ekranda oxuyacağıq
-        return f"VERİLƏNLƏR BAZASI VƏ YA KOD XƏTASI: {str(e)}"
+        return f"XƏTANIN DƏQİQ SƏBƏBİ: {str(e)}"
