@@ -50,62 +50,7 @@ class personal_info(db.Model):
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
-    return render_template('index.html')
-
-@app.route('/cavab', methods=['GET', 'POST'])
-def cavab():
-    if request.method == 'POST':
-        name = request.form.get('name').capitalize()
-        activity_name = request.form.get('activity').capitalize()
-        category_name = request.form.get('category')
-        companion_name = request.form.get('companion')
-        age = int(request.form.get('age'))
-        grade = int(request.form.get('grade'))
-        free_day = request.form.get('free_day')
-        hours_per_day = float(request.form.get('hours_per_day'))
-        satisfaction = float(request.form.get('satisfaction'))
-        email = request.form.get('email')
-
-        act = activities.query.filter_by(name=activity_name).first()
-        if not act:
-            act = activities(name=activity_name, category=category_name)
-            db.session.add(act)
-            db.session.commit()
-
-        comp = companions.query.filter_by(name=companion_name).first()
-        if not comp:
-            comp = companions(name=companion_name)
-            db.session.add(comp)
-            db.session.commit()
-
-        per_info = personal_info.query.filter_by(name=name).first()
-        if not per_info:
-            per_info = personal_info(name=name, email=email)
-            db.session.add(per_info)
-            db.session.commit()
-
-        yeni_response = responses(
-            personal_name=per_info.id,
-            age=age,
-            grade=grade,
-            free_day=free_day,
-            activity_id=act.id,
-            companion_id=comp.id,
-            hours_per_day=hours_per_day,
-            satisfaction=satisfaction
-        )
-        db.session.add(yeni_response)
-        db.session.commit()
-
-        return render_template('cavab.html',
-            name=name, 
-            activity=activity_name, 
-            category=category_name, 
-            companion=companion_name, 
-            age=age, 
-            grade=grade, 
-            free_day=free_day, 
-            hours_per_day=hours_per_day, 
-            satisfaction=satisfaction, 
-            email=email
-        )
+    try:
+        return render_template('index.html')
+    except Exception as e:
+        return f"Şablon və ya Kod Xətası: {str(e)}"
