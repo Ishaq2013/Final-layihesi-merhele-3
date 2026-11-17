@@ -1,10 +1,19 @@
-import sys
-import os
+from flask import Flask, render_template, request, redirect, url_for
+from flask_sqlalchemy import SQLAlchemy
 
-# Kök qovluğu Python yoluna əlavə edirik ki, app.py və şablonlar tapılsın
-sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+# Şablon və statik qovluqların yerini bir pillə yuxarıda (kökdə) göstəririk
+app = Flask(__name__, template_folder='../templates', static_folder='../static')
 
-from app import app
+# Neon.tech verilənlər bazası bağlantısı
+app.config['SQLALCHEMY_DATABASE_URI'] = 'BURAYA_NEON_BAGLANTI_LINKINI_YAZIN'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
-# Vercel üçün tətbiqi aktivləşdiririk
-application = app
+db = SQLAlchemy(app)
+
+# Cədvəl modelləriniz və route-larınız burada olmalıdır
+@app.route('/')
+def home():
+    return render_template('index.html') # Və ya ana səhifə şablonunuz
+
+# Əgər Vercel serverless üçün tələb olunursa:
+# app bütün routeları idarə edir
