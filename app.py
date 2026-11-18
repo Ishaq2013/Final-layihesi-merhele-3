@@ -49,6 +49,8 @@ class personal_info(db.Model):
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
+    with app.app_context():
+        db.create_all()
     return render_template('index.html')
 
 @app.route('/cavab', methods=['GET', 'POST'])
