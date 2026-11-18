@@ -13,7 +13,6 @@ cavablar_cədvəli = "responses"
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://neondb_owner:npg_Gx1CTwpB5zuR@ep-lively-glitter-bdjqe82z-pooler.c-8.us-east-2.aws.neon.tech/neondb?sslmode=require'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
-# kommentləri özüm yazmışam
 
 # activities cədvəli üçün model
 class activities(db.Model): 
@@ -28,16 +27,16 @@ class companions(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(50), unique=True, nullable=False)
 
-# responses cədvəli üçün model
+# responses cədvəli üçün model (foreign key-lər silindi)
 class responses(db.Model):
     __tablename__ = cavablar_cədvəli
     id = db.Column(db.Integer, primary_key=True)
-    personal_name = db.Column(db.Integer, db.ForeignKey(f'{şəxsi_məlumat_cədvəli}.id'), nullable=False)    
+    personal_name = db.Column(db.Integer, nullable=False)    
     age = db.Column(db.Integer, nullable=False)
     grade = db.Column(db.Integer, nullable=False)
     free_day = db.Column(db.String(20), nullable=False)
-    activity_id = db.Column(db.Integer, db.ForeignKey(f'{aktivlik_cədvəli}.id'), nullable=False)
-    companion_id = db.Column(db.Integer, db.ForeignKey(f'{yoldaş_cədvəli}.id'), nullable=False)
+    activity_id = db.Column(db.Integer, nullable=False)
+    companion_id = db.Column(db.Integer, nullable=False)
     hours_per_day = db.Column(db.Numeric(3,1), nullable=False)
     satisfaction = db.Column(db.Numeric(3,1), nullable=False)
 
@@ -55,7 +54,6 @@ def index():
 @app.route('/cavab', methods=['GET', 'POST'])
 def cavab():
     if request.method == 'POST':
-        # HTML-dəki name atributları ilə dəyərləri gətiririk
         name = request.form.get('name').capitalize()
         activity_name = request.form.get('activity').capitalize()
         category_name = request.form.get('category')
@@ -86,6 +84,7 @@ def cavab():
             per_info = personal_info(name=name, email=email)
             db.session.add(per_info)
             db.session.commit()
+
         # Cavabları responses cədvəlinə yazırıq
         yeni_response = responses(
             personal_name=per_info.id,
@@ -96,11 +95,10 @@ def cavab():
             companion_id=comp.id,
             hours_per_day=hours_per_day,
             satisfaction=satisfaction
-            )
+        )
         db.session.add(yeni_response)
         db.session.commit()
 
-        # Şəxsi məlumatları personal_info cədvəlinə yazırıq
         return render_template('cavab.html',
             name=name, 
             activity=activity_name, 
