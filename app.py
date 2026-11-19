@@ -11,6 +11,11 @@ cavablar_cədvəli = "responses"
 şəxsi_məlumat_cədvəli = "personal_info"
 
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://neondb_owner:npg_Gx1CTwpB5zuR@ep-lively-glitter-bdjqe82z-pooler.c-8.us-east-2.aws.neon.tech/final_layihesi?sslmode=require&channel_binding=require'
+app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
+app.config["SQLALCHEMY_ENGINE_OPTIONS"] = {
+    "pool_pre_ping": True,
+    "pool_recycle": 180,
+}
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
@@ -49,8 +54,6 @@ class personal_info(db.Model):
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
-    with app.app_context():
-        db.create_all()
     return render_template('index.html')
 
 @app.route('/cavab', methods=['GET', 'POST'])

@@ -7,7 +7,7 @@
     <title>Boş vaxt sorğusu</title>
     <link rel="icon" href='{{ url_for("static", filename="favicon.png") }}'>
     <style>
-        .yüklənmə_animasiyası_arxa_fon {
+        /* div.yüklənmə_animasiyası_arxa_fon {
             position: fixed;
             inset: 0;
             background: linear-gradient(to right, #000000, #03009a, #000000);
@@ -18,7 +18,7 @@
             animation: gizlənmə_animasiya_adı 1.5s 1.5s ease forwards;
         }
             
-        .yüklənmə_animasiyası_dairə {
+        div.yüklənmə_animasiyası_dairə {
             width: 100px;
             height: 100px;
             border: 10px solid #ffb300;
@@ -38,7 +38,7 @@
                 opacity: 0;
                 visibility: hidden;
                 } 
-        }
+        } */
                             
         body {
             background: linear-gradient(to right, #000000, #03009a, #000000);
@@ -53,7 +53,42 @@
             opacity: 0.7;
             cursor: pointer;
         }
-        
+
+        span.progress-qutu {
+            position: relative;
+            display: flex;
+            width: 100%;
+            height: 12px;
+            background: linear-gradient(90deg, #ff0000 0%, #fff900 50%, #142fff 100%);
+            border: 2px solid #ffb300;
+            border-radius: 20px;
+            overflow: hidden;
+            margin-bottom: 18px;
+            box-sizing: border-box;
+        }
+
+        span.dilim {
+            flex: 1 1 0;
+            height: 100%;
+            background: rgba(10, 10, 35, 0.88);
+            transform: scaleX(1);
+            transform-origin: right center;
+            transition: transform 0.5s ease;
+        }
+
+        form:has([name="name"]:valid) .d1,
+        form:has([name="activity"]:valid) .d2,
+        form:has([name="category"]:valid) .d3,
+        form:has([name="companion"]:valid) .d4,
+        form:has([name="age"]:valid) .d5,
+        form:has([name="grade"]:valid) .d6,
+        form:has([name="free_day"]:valid) .d7,
+        form:has([name="hours_per_day"]:valid) .d8,
+        form:has([name="satisfaction"]:valid) .d9,
+        form:has([name="email"]:valid) .d10 {
+            transform: scaleX(0);
+        }
+
         button.göndər {
             box-sizing: border-box;
             width: 150px;
@@ -205,12 +240,12 @@
         
         input:user-invalid,
         select:user-invalid {
-            border: 2px solid #ff0000;
+            border: 2px solid red;
         }
         
         input:user-valid,
         select:user-valid {
-            border: 2px solid greenyellow !important;
+            border: 2px solid greenyellow;
             
         }
         
@@ -312,6 +347,18 @@
         </div>
         <div class="conteiner">
             <form action="{{ url_for('cavab') }}" method="POST">
+                <span class="progress-qutu">
+                    <span class="dilim d1"></span>
+                    <span class="dilim d2"></span>
+                    <span class="dilim d3"></span>
+                    <span class="dilim d4"></span>
+                    <span class="dilim d5"></span>
+                    <span class="dilim d6"></span>
+                    <span class="dilim d7"></span>
+                    <span class="dilim d8"></span>
+                    <span class="dilim d9"></span>
+                    <span class="dilim d10"></span>
+                </span>
                 <div class="div-1">
                     <label>
                         <img src="{{ url_for('static', filename='ad.png') }}" alt="">
