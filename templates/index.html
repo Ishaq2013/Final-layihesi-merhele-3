@@ -451,7 +451,7 @@
                         Fəaliyyətinizdən nə qədər məmnunsunuz?
                     </label>
                     <img src="{{ url_for('static', filename='kopyalama.png' )}}" alt="" onclick="navigator.clipboard.writeText(this.nextElementSibling.value)" class="kopyalama">
-                    <input type="number" name="satisfaction" required min="0.5" max="10" step="0.5"
+                    <input type="number" name="satisfaction" required min="0.5" max="10" step="0.1"
                         placeholder="10 üzərindən" title="Zəhmət olmasa bu xananı boş qoymayın!"
                         oninvalid="this.setCustomValidity('Zəhmət olmasa bu xananı boş qoymayın!')"
                         oninput="this.setCustomValidity('')">
