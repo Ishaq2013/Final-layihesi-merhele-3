@@ -441,7 +441,7 @@
                         Bu fəaliyyətə nə qədər vaxt sərf edirsiniz?
                     </label>
                     <img src="{{ url_for('static', filename='kopyalama.png' )}}" alt="" onclick="navigator.clipboard.writeText(this.nextElementSibling.value)" class="kopyalama">
-                    <input type="number" name="hours_per_day" min="0.5" max="12" step="0.5"
+                    <input type="number" name="hours_per_day" min="0.5" max="12" step="0.1"
                         placeholder="0 ilə 12 saat arası" title="Zəhmət olmasa bu xananı boş qoymayın!" required
                         oninvalid="this.setCustomValidity('Zəhmət olmasa bu xananı boş qoymayın!')"
                         oninput="this.setCustomValidity('')">
