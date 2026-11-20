@@ -63,7 +63,7 @@
             border: 2px solid #ffb300;
             border-radius: 20px;
             overflow: hidden;
-            margin-bottom: 18px;
+            margin-top: 20px;
             box-sizing: border-box;
         }
 
@@ -157,7 +157,20 @@
             box-shadow: 0 0 20px #ffb300;
         }
         
+        div.container-3{
+            position: relative;
+            padding: 20px;
+            max-height: 100%;
+            background-color: transparent;
+            margin-top: 15px;
+            margin-bottom: 25px;
+            border: 3px solid #ffb300;
+            border-radius: 30px;
+            box-shadow: 0 0 20px #ffb300;
+        }
+
         h3 {
+            display: inline;
             padding: 0;
             margin: 0;
         }
@@ -261,6 +274,8 @@
             height: 30px; 
             display: inline-block; 
             margin-right: 5px;
+            transform: translateY(6px);
+            user-select: none;
         }
 
         img.kopyalama {
@@ -275,11 +290,11 @@
             transform: translateY(-1px);
         }
 
-        img {
-            transform: translateY(6px);
-            
+        img.info {
+            width: 25px;
+            height: 25px;
         }
-        
+
         body::-webkit-scrollbar {
             display: none;
         }
@@ -513,10 +528,13 @@
                         oninvalid="this.setCustomValidity('Zəhmət olmasa bu xananı boş qoymayın!')"
                         oninput="this.setCustomValidity('')"><br>
                 </div>
-                <button type="submit" title="Göndərmək üçün bas!" class="göndər"><img src="{{  url_for('static', filename='göndər.png')  }}" alt="" class="göndər">Göndər</button>
-                <button type="reset" title="Sıfırlamaq üçün bas!" class="sıfırla"><img src="{{  url_for('static', filename='sıfırla.png')  }}" alt="" class="göndər">Sıfırla</button>
+                <button type="submit" title="Göndərmək üçün bas!" class="göndər" onclick="s = document.getElementById('səs1').play()"><img src="{{  url_for('static', filename='göndər.png')  }}" alt="" class="göndər">Göndər</button>
+                <button type="reset" title="Sıfırlamaq üçün bas!" class="sıfırla" onclick="s = document.getElementById('səs2').play()"><img src="{{  url_for('static', filename='sıfırla.png')  }}" alt="" class="göndər">Sıfırla</button>
+                <audio src="{{ url_for('static', filename='pop.mp3') }}" id="səs1"></audio>
+                <audio src="{{ url_for('static', filename='vuh.mp3') }}" id="səs2"></audio>
             </form>
         </div>
+        <div class="container-3"><img src="{{ url_for('static', filename='info.png') }}" alt="" class="info"><h3>Əgər 2 və ya daha artıq hobbiniz varsa, ayrı-ayrı cavab göndərə bilərsiniz!</h3></div>
     </center>
     <img src="{{ url_for('static', filename='loqo1_seffaf_fon.png') }}" alt="Image"
         style="position: fixed; bottom: 0; right: 0; width: 100px; height: 100px;">

@@ -6,7 +6,7 @@
     <title>Nəticə</title>
     <link rel="icon" href='{{ url_for("static", filename="favicon.png") }}'>
     <style>
-        .yüklənmə_animasiyası_arxa_fon { 
+        /* div.yüklənmə_animasiyası_arxa_fon { 
             position: fixed;                                                        
             inset: 0;                                                               
             background: linear-gradient(to right, #000000, #03009a, #000000);
@@ -17,7 +17,7 @@
             animation: gizlənmə_animasiya_adı 1.5s 1.5s ease forwards;              
         } 
 
-        .yüklənmə_animasiyası_dairə {
+        div.yüklənmə_animasiyası_dairə {
             width: 100px;
             height: 100px; 
             border: 10px solid #ffb300;
@@ -35,7 +35,7 @@
                 opacity: 0; 
                 visibility: hidden; 
             }
-        }
+        } */
         body::-webkit-scrollbar {
             display: none;
         }
@@ -78,7 +78,7 @@
             color: #ffb300;
             outline: none;
         }
-        div.conteiner {
+        div.container {
             position: relative;
             max-height: 100%;
             background-color: transparent;
@@ -88,8 +88,18 @@
             border-radius: 30px;
             box-shadow: 0 0 20px #ffb300;
         }
+
+        div.container2{
+            position: relative;
+            max-height: 100%;
+            background-color: transparent;
+            margin-top: 15px;
+            border: 3px solid #ffb300;
+            border-radius: 30px;
+            box-shadow: 0 0 20px #ffb300;
+        }
+
         div.başlıq {
-            /* width: 500px; */
             background-color: transparent;
             margin-top: 15px;
             padding: 20px 0px;
@@ -97,50 +107,58 @@
             border-radius: 30px;
             box-shadow: 0 0 20px #ffb300;
         }
+
         div.div-1, div.div-2 {
             display: inline-block;
         }
+
         div.div-2 {
             margin-left: 50px;
             float: right;
         }
+
         a:hover {
             background: linear-gradient( #03009a, #000000, #03009a);
             color: #ffb300;
         }
+
         div.hissə:hover {
             background: linear-gradient( #03009a, #000000, #03009a);
             color: #ffb300;
         }
+
         div.hissə:active {
             background: linear-gradient( #000000, #03009a, #000000);
             color: #ffb300;
             transform: scale(0.9);
         }
+
         a:active {
             background: linear-gradient( #000000, #03009a, #000000);
             color: #ffb300;
             transform: scale(0.9);
             cursor: grabbing;
         }
+
         ::selection {
             background: #ffb300;
             color: #000000;
         }
+
         div.hissə:focus{
             border: 2px solid #ffb300;
             box-shadow: 0 0 12px rgba(255, 179, 0, 1);
             outline: none;
         }
-        h3 {
-            margin-top: 30px;
-        }
+
         h1 {
             margin: 0;
         }
+
         h2 {
             margin-bottom: 0;
         }
+
         @media screen and (max-width: 1150px) {
             body {
                 display: block;
@@ -175,6 +193,14 @@
                 box-sizing: border-box;
             }
         }
+        img {
+            user-select: none;
+        }
+        img.info {
+            transform: translateY(5px);
+            width: 25px;
+            height: 25px;
+        }
     </style>
 </head>
 <body>
@@ -187,23 +213,34 @@
             <h2>Bizi seçdiyiniz üçün təşəkkür edirik!</h2>
         </div>
         <h3>Daxil etdiyiniz cavablar:</h3>
-        <div class="conteiner">
+        <div class="container">
                 <div class="div-1">
-                    <div class="hissə"><img src="{{ url_for('static', filename='ad.png') }}" alt="" style="width: 30px; height: 30px; display: inline-block; margin-right: 5px;">Ad: {{ name }}</div>
-                    <div class="hissə"><img src="{{ url_for('static', filename='fəaliyyət.png') }}" alt="" style="width: 30px; height: 30px; display: inline-block; margin-right: 5px;">Fəaliyyət Adı: {{ activity }}</div>
-                    <div class="hissə"> <img src="{{ url_for('static', filename='kateqoriya.png') }}" alt="" style="width: 30px; height: 30px; display: inline-block; margin-right: 5px;">Kateqoriya: {{ category }}</div>
-                    <div class="hissə"><img src="{{ url_for('static', filename='yoldaş.png') }}" alt="" style="width: 30px; height: 30px; display: inline-block; margin-right: 5px;">Bu fəaliyyəti birlikdə elədiyin yoldaş: {{ companion }}</div>
-                    <div class="hissə"><img src="{{ url_for('static', filename='yaş.png') }}" alt="" style="width: 30px; height: 30px; display: inline-block; margin-right: 5px;">Yaş: {{ age }}</div>
+                    <div class="hissə" onclick="s = document.getElementById('səs2'), s.currentTime = 0, s.play()"><img src="{{ url_for('static', filename='ad.png') }}" alt="" style="width: 30px; height: 30px; display: inline-block; margin-right: 5px;">Ad: {{ name }}</div>
+                    <div class="hissə" onclick="s = document.getElementById('səs2'), s.currentTime = 0, s.play()"><img src="{{ url_for('static', filename='fəaliyyət.png') }}" alt="" style="width: 30px; height: 30px; display: inline-block; margin-right: 5px;">Fəaliyyət Adı: {{ activity }}</div>
+                    <div class="hissə" onclick="s = document.getElementById('səs2'), s.currentTime = 0, s.play()"> <img src="{{ url_for('static', filename='kateqoriya.png') }}" alt="" style="width: 30px; height: 30px; display: inline-block; margin-right: 5px;">Kateqoriya: {{ category }}</div>
+                    <div class="hissə" onclick="s = document.getElementById('səs2'), s.currentTime = 0, s.play()"><img src="{{ url_for('static', filename='yoldaş.png') }}" alt="" style="width: 30px; height: 30px; display: inline-block; margin-right: 5px;">Bu fəaliyyəti birlikdə elədiyin yoldaş: {{ companion }}</div>
+                    <div class="hissə" onclick="s = document.getElementById('səs2'), s.currentTime = 0, s.play()"><img src="{{ url_for('static', filename='yaş.png') }}" alt="" style="width: 30px; height: 30px; display: inline-block; margin-right: 5px;">Yaş: {{ age }}</div>
                 </div>
                 <div class="div-2">
-                    <div class="hissə"><img src="{{ url_for('static', filename='sinif.png') }}" alt="" style="width: 30px; height: 30px; display: inline-block; margin-right: 5px;">Sinif: {{ grade }}</div>
-                    <div class="hissə"><img src="{{ url_for('static', filename='həftənin günü.png') }}" alt="" style="width: 30px; height: 30px; display: inline-block; margin-right: 5px;">Həftənin hansı günü daha çox boş vaxtınız olur?: {{ free_day }}</div>
-                    <div class="hissə"> <img src="{{ url_for('static', filename='təqvim_saat.png') }}" alt="" style="width: 30px; height: 30px; display: inline-block; margin-right: 5px;">Hobbi ilə neçə saat məşğul olursan?: {{ hours_per_day }}</div>
-                    <div class="hissə"><img src="{{ url_for('static', filename='xoşlamaq.png') }}" alt="" style="width: 30px; height: 30px; display: inline-block; margin-right: 5px;">Fəaliyyətinizdən nə qədər məmnunsunuz?: {{ satisfaction }}</div>
-                    <div class="hissə"><img src="{{ url_for('static', filename='email.png') }}" alt="" style="width: 30px; height: 30px; display: inline-block; margin-right: 5px;">Email: {{ email }}</div>
+                    <div class="hissə" onclick="s = document.getElementById('səs2'), s.currentTime = 0, s.play()"><img src="{{ url_for('static', filename='sinif.png') }}" alt="" style="width: 30px; height: 30px; display: inline-block; margin-right: 5px;">Sinif: {{ grade }}</div>
+                    <div class="hissə" onclick="s = document.getElementById('səs2'), s.currentTime = 0, s.play()"><img src="{{ url_for('static', filename='həftənin günü.png') }}" alt="" style="width: 30px; height: 30px; display: inline-block; margin-right: 5px;">Həftənin hansı günü daha çox boş vaxtınız olur?: {{ free_day }}</div>
+                    <div class="hissə" onclick="s = document.getElementById('səs2'), s.currentTime = 0, s.play()"> <img src="{{ url_for('static', filename='təqvim_saat.png') }}" alt="" style="width: 30px; height: 30px; display: inline-block; margin-right: 5px;">Hobbi ilə neçə saat məşğul olursan?: {{ hours_per_day }}</div>
+                    <div class="hissə" onclick="s = document.getElementById('səs2'), s.currentTime = 0, s.play()"><img src="{{ url_for('static', filename='xoşlamaq.png') }}" alt="" style="width: 30px; height: 30px; display: inline-block; margin-right: 5px;">Fəaliyyətinizdən nə qədər məmnunsunuz?: {{ satisfaction }}</div>
+                    <div class="hissə" onclick="s = document.getElementById('səs2'), s.currentTime = 0, s.play()"><img src="{{ url_for('static', filename='email.png') }}" alt="" style="width: 30px; height: 30px; display: inline-block; margin-right: 5px;">Email: {{ email }}</div>
                 </div>
         </div>
-        <a href="{{ url_for('index') }}" title="Geri qayıtmaq üçün bas">Geri qayıt</a>
+        <div class="container2">
+            <h3><img src="{{ url_for('static', filename='info.png') }}" alt="" class="info">Əlaqə üçün : Ishaq2013@proton.me</h3>
+        </div>
+        
+        <audio id="səs" src="{{ url_for('static', filename='iyyu.mp3') }}" preload="auto"></audio>  
+        <a title="Geri qayıtmaq üçün bas" onclick="
+            s = document.getElementById('səs'); s.currentTime = 0; s.play(), event.preventDefault(); 
+            setTimeout(() => window.location = this.href, 1500)">
+            Geri qayıt
+        </a>
+
+        <audio src="{{ url_for('static', filename='tak.mp3') }}" preload="auto" id="səs2"></audio>
     </center>
     <img src="{{ url_for('static', filename='loqo1_seffaf_fon.png') }}" alt="Image" style="position: fixed; bottom: 0; right: 0; width: 100px; height: 100px;">
 </body>

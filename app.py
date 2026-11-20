@@ -84,7 +84,7 @@ def cavab():
             db.session.add(comp)
             db.session.commit()
 
-        per_info = personal_info.query.filter_by(name=name).first()
+        per_info = personal_info.query.filter_by(email=email).first()
         if not per_info:
             per_info = personal_info(name=name, email=email)
             db.session.add(per_info)
