@@ -234,9 +234,9 @@
         </div>
         
         <audio id="səs" src="{{ url_for('static', filename='iyyu.mp3') }}" preload="auto"></audio>  
-        <a title="Geri qayıtmaq üçün bas" onclick="
+        <a href="{{ url_for('index') }}" title="Geri qayıtmaq üçün bas" onclick="
             s = document.getElementById('səs'); s.currentTime = 0; s.play(), event.preventDefault(); 
-            setTimeout(() => window.location = this.href, 1500)">
+            setTimeout(() => window.location = this.href, 700)">
             Geri qayıt
         </a>
 

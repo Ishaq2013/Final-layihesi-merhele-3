@@ -528,8 +528,9 @@
                         oninvalid="this.setCustomValidity('Zəhmət olmasa bu xananı boş qoymayın!')"
                         oninput="this.setCustomValidity('')"><br>
                 </div>
-                <button type="submit" title="Göndərmək üçün bas!" class="göndər" onclick="s = document.getElementById('səs1').play(), event.preventDefault(); 
-                setTimeout(() => window.location = this.href, 500)"><img src="{{  url_for('static', filename='göndər.png')  }}" alt="" class="göndər">Göndər</button>
+                <button type="submit" class="göndər" onclick="event.preventDefault(); document.getElementById('səs1').play(); setTimeout(() => this.form.submit(), 500);">
+                    <img src="{{ url_for('static', filename='göndər.png') }}" alt="" class="göndər">Göndər
+                </button>
                 <button type="reset" title="Sıfırlamaq üçün bas!" class="sıfırla" onclick="s = document.getElementById('səs2').play()"><img src="{{  url_for('static', filename='sıfırla.png')  }}" alt="" class="göndər">Sıfırla</button>
                 <audio src="{{ url_for('static', filename='pop.mp3') }}" id="səs1"></audio>
                 <audio src="{{ url_for('static', filename='vuh.mp3') }}" id="səs2"></audio>
@@ -540,5 +541,4 @@
     <img src="{{ url_for('static', filename='loqo1_seffaf_fon.png') }}" alt="Image"
         style="position: fixed; bottom: 0; right: 0; width: 100px; height: 100px;">
 </body>
-
 </html>
