@@ -453,7 +453,7 @@
                     <img src="{{ url_for('static', filename='kopyalama.png' )}}" alt="" onclick="navigator.clipboard.writeText(this.nextElementSibling.value)" class="kopyalama">
                     <input type="number" name="age" title="Zəhmət olmasa bu xananı boş qoymayın!" min="6" max="18"
                         placeholder="Yaşınızı daxil edin(6-18)" required
-                        oninvalid="this.setCustomValidity('Zəhmət olmasa bu xananı boş qoymayın!')"
+                        oninvalid="this.setCustomValidity(this.validity.valueMissing ? 'Boş qoymayın!' : '6 ilə 18 yaş arası olmalıdır!')"
                         oninput="this.setCustomValidity('')"><br>
                 </div>
                 <div class="div-2">
@@ -505,7 +505,7 @@
                     <img src="{{ url_for('static', filename='kopyalama.png' )}}" alt="" onclick="navigator.clipboard.writeText(this.nextElementSibling.value)" class="kopyalama">
                     <input type="number" name="hours_per_day" min="0.1" max="12" step="0.1"
                         placeholder="0 ilə 12 saat arası" title="Zəhmət olmasa bu xananı boş qoymayın!" required
-                        oninvalid="this.setCustomValidity('Zəhmət olmasa bu xananı boş qoymayın!')"
+                        oninvalid="this.setCustomValidity(this.validity.valueMissing ? 'Boş qoymayın!' : '0.1 ilə 18 saat arası olmalıdır!')"
                         oninput="this.setCustomValidity('')">
 
                     <label>
@@ -513,9 +513,9 @@
                         Fəaliyyətinizdən nə qədər məmnunsunuz?
                     </label>
                     <img src="{{ url_for('static', filename='kopyalama.png' )}}" alt="" onclick="navigator.clipboard.writeText(this.nextElementSibling.value)" class="kopyalama">
-                    <input type="number" name="satisfaction" required min="0.5" max="10" step="0.1"
+                    <input type="number" name="satisfaction" required min="0.1" max="10" step="0.1"
                         placeholder="10 üzərindən" title="Zəhmət olmasa bu xananı boş qoymayın!"
-                        oninvalid="this.setCustomValidity('Zəhmət olmasa bu xananı boş qoymayın!')"
+                        oninvalid="this.setCustomValidity(this.validity.valueMissing ? 'Boş qoymayın!' : '0.1 ilə 10 xal arası olmalıdır!')"
                         oninput="this.setCustomValidity('')">
 
                     <label>
