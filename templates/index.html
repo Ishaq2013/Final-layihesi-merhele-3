@@ -89,7 +89,7 @@
             transform: scaleX(0);
         }
 
-        button.göndər {
+        button.göndər, button.səssiz {
             box-sizing: border-box;
             width: 150px;
             display: flex;
@@ -209,7 +209,7 @@
             background: linear-gradient(#03009a, #000000, #03009a);
         }
         
-        button.göndər:hover {
+        button.göndər:hover, button.səssiz:hover {
             background: linear-gradient(#03009a, #000000, #03009a);
             color: #ffb300;
         }
@@ -220,7 +220,7 @@
             color: #ffb300;
         }
         
-        button.göndər:active {
+        button.göndər:active, button.səssiz:active {
             background: linear-gradient(#000000, #03009a, #000000);
             color: #ffb300;
             transform: scale(0.9);
@@ -534,6 +534,9 @@
                 <button type="reset" title="Sıfırlamaq üçün bas!" class="sıfırla" onclick="s = document.getElementById('səs2').play()"><img src="{{  url_for('static', filename='sıfırla.png')  }}" alt="" class="göndər">Sıfırla</button>
                 <audio src="{{ url_for('static', filename='pop.mp3') }}" id="səs1"></audio>
                 <audio src="{{ url_for('static', filename='vuh.mp3') }}" id="səs2"></audio>
+                <button type="button" class="səssiz" onclick="document.querySelectorAll('audio').forEach(s => s.muted = !s.muted); this.textContent = this.textContent === 'Səsi aç' ? 'Səssiz et' : 'Səsi aç'">
+                    Səssiz et
+                </button>
             </form>
         </div>
         <div class="container-3"><img src="{{ url_for('static', filename='info.png') }}" alt="" class="info"><h3>Əgər 2 və ya daha artıq hobbiniz varsa, ayrı-ayrı cavab göndərə bilərsiniz!</h3></div>
