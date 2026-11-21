@@ -290,6 +290,13 @@
             transform: translateY(-1px);
         }
 
+        img.səssiz {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            transform: translateY(-1px);
+        }
+
         img.info {
             width: 25px;
             height: 25px;
@@ -528,14 +535,15 @@
                         oninvalid="this.setCustomValidity('Zəhmət olmasa bu xananı boş qoymayın!')"
                         oninput="this.setCustomValidity('')"><br>
                 </div>
-                <button type="submit" class="göndər" onclick="event.preventDefault(); document.getElementById('səs1').play(); setTimeout(() => this.form.requestSubmit(), 500);">
+                <button type="submit" class="göndər" onclick="event.preventDefault(); document.getElementById('səs1').play(); setTimeout(() => this.form.requestSubmit(), 80);">
                     <img src="{{ url_for('static', filename='göndər.png') }}" alt="" class="göndər">Göndər
                 </button>
                 <button type="reset" title="Sıfırlamaq üçün bas!" class="sıfırla" onclick="s = document.getElementById('səs2').play()"><img src="{{  url_for('static', filename='sıfırla.png')  }}" alt="" class="göndər">Sıfırla</button>
                 <audio src="{{ url_for('static', filename='pop.mp3') }}" id="səs1"></audio>
                 <audio src="{{ url_for('static', filename='vuh.mp3') }}" id="səs2"></audio>
-                <button type="button" class="səssiz" onclick="document.querySelectorAll('audio').forEach(s => s.muted = !s.muted); this.textContent = this.textContent === 'Səsi aç' ? 'Səssiz et' : 'Səsi aç'">
-                    Səssiz et
+                <button type="button" class="səssiz" onclick="let muted = false; document.querySelectorAll('audio').forEach(s => { s.muted = !s.muted; muted = s.muted; }); this.querySelector('img').src = muted ? '/static/səsli.png' : '/static/səssiz.png'; this.querySelector('span').textContent = muted ? 'Səsli':'Səssiz';">
+                    <img src="{{ url_for('static', filename='səssiz.png') }}" alt="" class="səssiz">
+                    <span>Səssiz</span>
                 </button>
             </form>
         </div>
