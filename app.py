@@ -59,7 +59,7 @@ def index():
 @app.route('/cavab', methods=['GET', 'POST'])
 def cavab():
     if request.method == 'POST':
-        name = request.form.get('name').capitalize()
+        name = request.form.get('name').strip().capitalize()
         activity_name = request.form.get('activity').capitalize()
         category_name = request.form.get('category')
         companion_name = request.form.get('companion')
@@ -84,7 +84,7 @@ def cavab():
             db.session.add(comp)
             db.session.commit()
 
-        per_info = personal_info.query.filter_by(email=email).first()
+        per_info = personal_info.query.filter_by(name=name).first()
         if not per_info:
             per_info = personal_info(name=name, email=email)
             db.session.add(per_info)
